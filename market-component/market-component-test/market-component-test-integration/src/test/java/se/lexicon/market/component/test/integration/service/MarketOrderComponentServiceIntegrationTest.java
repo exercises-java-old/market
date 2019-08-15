@@ -51,18 +51,19 @@ public class MarketOrderComponentServiceIntegrationTest {
     }
 
     @Test
-    public void testPlaceTwoMarkets() {
+    public void testPlaceTwoMarkets() throws InterruptedException {
         MarketOrderComponentService marketOrderComponentService = MarketOrderComponentServiceIntegrationTestSuite.getImportContext().getBean(MarketOrderComponentService.class);
 
-        MarketOrder market1 = MarketOrderTestBuilder.builder().withSsn("111222").withInstrument("ABB").withAmount(BigDecimal.ONE).build();
-        MarketOrder market2 = MarketOrderTestBuilder.builder().withSsn("111222").withInstrument("ABB").withAmount(BigDecimal.TEN).build();
+        MarketOrder market1 = MarketOrderTestBuilder.builder().withSsn("111222").withOrderId("111222-1").withInstrument("ABB").withAmount(BigDecimal.ONE).build();
+        MarketOrder market2 = MarketOrderTestBuilder.builder().withSsn("111222").withOrderId("111222-2").withInstrument("ABB").withAmount(BigDecimal.TEN).build();
 
         marketOrderComponentService.placeMarketOrder(market1);
         marketOrderComponentService.placeMarketOrder(market2);
 
-        MarketOrders markets = marketOrderComponentService.getMarketOrders("ABB","111222");
+        //MarketOrders markets = marketOrderComponentService.getMarketOrders("ABB","111222");
 
-        Assert.assertEquals(2, markets.size());
+        Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketOrderComponentService.getMarketOrders("ABB","111222").size() == 2));
+
     }
 
     @Test
@@ -150,23 +151,20 @@ public class MarketOrderComponentServiceIntegrationTest {
     }
 
     @Test
-    public void testGetAllMarketComponent() {
+    public void testGetAllMarketComponent() throws InterruptedException {
         MarketOrderComponentService marketOrderComponentService = MarketOrderComponentServiceIntegrationTestSuite.getImportContext().getBean(MarketOrderComponentService.class);
 
         marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("111111").withInstrument("ABB").withAmount(BigDecimal.ONE).build());
         marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("111111").withInstrument("ABB").withAmount(BigDecimal.TEN).build());
         marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("111111").withInstrument("SAAB").withAmount(BigDecimal.TEN).build());
 
-        MarketOrders markets1 = marketOrderComponentService.getMarketOrders("ABB","111111");
-        Assert.assertEquals(2, markets1.size());
-
-        MarketOrders markets2 = marketOrderComponentService.getMarketOrders("SAAB","111111");
-        Assert.assertEquals(1, markets2.size());
+        Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketOrderComponentService.getMarketOrders("ABB","111111").size() == 2));
+        Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketOrderComponentService.getMarketOrders("SAAB","111111").size() == 1));
 
     }
 
     @Test
-    public void testGetInstruments() {
+    public void testGetInstruments() throws InterruptedException {
         MarketOrderComponentService marketOrderComponentService = MarketOrderComponentServiceIntegrationTestSuite.getImportContext().getBean(MarketOrderComponentService.class);
 
         marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("111111").withInstrument("ABB").withAmount(BigDecimal.ONE).build());
@@ -178,8 +176,11 @@ public class MarketOrderComponentServiceIntegrationTest {
         marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("222222").withInstrument("ERICSSON").withAmount(BigDecimal.TEN).build());
         marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("222222").withInstrument("ABB").withAmount(BigDecimal.TEN).build());
 
-        Assert.assertEquals(3, marketOrderComponentService.getInstruments("222222").size());
-        Assert.assertEquals(2, marketOrderComponentService.getInstruments("111111").size());
+        Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketOrderComponentService.getInstruments("222222").size() == 3));
+        Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketOrderComponentService.getInstruments("111111").size() == 2));
+
+        //Assert.assertEquals(3, marketOrderComponentService.getInstruments("222222").size());
+        //Assert.assertEquals(2, marketOrderComponentService.getInstruments("111111").size());
 
         Assert.assertEquals("[ABB, SAAB, ERICSSON]", marketOrderComponentService.getInstruments("222222").toString());
         Assert.assertEquals("[ABB, SAAB]", marketOrderComponentService.getInstruments("111111").toString());
@@ -187,7 +188,7 @@ public class MarketOrderComponentServiceIntegrationTest {
     }
 
     @Test
-    public void testGetTotalMarketValue() {
+    public void testGetTotalMarketValue() throws InterruptedException {
         MarketOrderComponentService marketOrderComponentService = MarketOrderComponentServiceIntegrationTestSuite.getImportContext().getBean(MarketOrderComponentService.class);
 
         marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("111111").withInstrument("ABB").withAmount(BigDecimal.ONE).build());
@@ -198,6 +199,8 @@ public class MarketOrderComponentServiceIntegrationTest {
         marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("222222").withInstrument("SAAB").withAmount(BigDecimal.TEN).build());
         marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("222222").withInstrument("ERICSSON").withAmount(BigDecimal.TEN).build());
         marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("222222").withInstrument("ABB").withAmount(BigDecimal.TEN).build());
+
+        Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketOrderComponentService.getInstruments("222222").size() == 3));
 
         Assert.assertEquals(BigDecimal.valueOf(52.0), marketOrderComponentService.getTotalMarketValueOfAllMarkets());
 
