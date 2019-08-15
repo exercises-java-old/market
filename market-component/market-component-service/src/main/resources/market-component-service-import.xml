@@ -4,8 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="marketComponentService" class="com.so4it.common.bean.LazyProxyFactoryBean">
-        <constructor-arg name="beanType" value="se.lexicon.market.component.service.MarketComponentService"/>
+    <bean id="marketOrderComponentService" class="com.so4it.common.bean.LazyProxyFactoryBean">
+        <constructor-arg name="beanType" value="se.lexicon.market.component.service.MarketOrderComponentService"/>
         <constructor-arg name="beanContext" ref="frameworksBeanContext"/>
     </bean>
 

@@ -1,4 +1,4 @@
-package se.lexicon.order.component.service;
+package se.lexicon.market.component.service;
 
 import com.so4it.gs.rpc.RemoteResultReducer;
 import com.so4it.gs.rpc.exception.ResultReducerException;

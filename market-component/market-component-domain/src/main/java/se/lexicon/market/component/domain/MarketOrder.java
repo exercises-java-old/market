@@ -20,6 +20,8 @@ public class MarketOrder extends ValueObject implements Serializable {
 
     private String ssn;
 
+    private String orderId;
+
     private BigDecimal amount;
 
     // Timestamp from core system when the market was made
@@ -44,6 +46,7 @@ public class MarketOrder extends ValueObject implements Serializable {
     private MarketOrder(Builder builder) {
         this.id = builder.id;
         this.ssn = Required.notNull(builder.ssn,"ssn");
+        this.orderId = Required.notNull(builder.orderId,"orderId");
         this.amount = Required.notNull(builder.amount,"amount");
         this.instrument = Required.notNull(builder.instrument,"instrument");
         this.noOfItems = Required.notNull(builder.noOfItems,"noOfItems");
@@ -62,6 +65,8 @@ public class MarketOrder extends ValueObject implements Serializable {
     public String getSsn() {
         return ssn;
     }
+
+    public String getOrderId() { return orderId; }
 
     public String getOrderBookId() {
         return orderBookId;
@@ -106,6 +111,8 @@ public class MarketOrder extends ValueObject implements Serializable {
 
         private String ssn;
 
+        private String orderId;
+
         private BigDecimal amount;
 
         private String instrument;
@@ -129,6 +136,11 @@ public class MarketOrder extends ValueObject implements Serializable {
 
         public Builder withSsn(String ssn){
             this.ssn = ssn;
+            return this;
+        }
+
+        public Builder withOrderId(String orderId){
+            this.orderId = orderId;
             return this;
         }
 

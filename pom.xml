@@ -9,17 +9,17 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>market-api</module>
-        <module>market-component</module>
-    </modules>
+        <!-- <module>market-api</module> -->
+         <module>market-component</module>
+     </modules>
 
 
-    <properties>
+     <properties>
 
 
-        <!--
-            The current SUGAR version we are using
-        -->
+         <!--
+             The current SUGAR version we are using
+         -->
         <sugar.version>0.17.0-RT4-SNAPSHOT</sugar.version>
 
 

@@ -3,7 +3,7 @@ package se.lexicon.market.component.test.common.entity;
 import se.lexicon.market.component.domain.Money;
 import se.lexicon.market.component.domain.MarketPriceType;
 import se.lexicon.market.component.domain.Side;
-import se.lexicon.market.component.entity.MarketEntity;
+import se.lexicon.market.component.entity.MarketOrderEntity;
 import com.so4it.common.util.object.Required;
 import com.so4it.test.domain.AbstractTestBuilder;
 
@@ -14,16 +14,17 @@ import java.util.Currency;
 /**
  * @author Magnus Poromaa {@literal <mailto:magnus.poromaa@so4it.com/>}
  */
-public class MarketEntityTestBuilder extends AbstractTestBuilder<MarketEntity> {
+public class MarketOrderEntityTestBuilder extends AbstractTestBuilder<MarketOrderEntity> {
 
-    private MarketEntity.Builder builder;
+    private MarketOrderEntity.Builder builder;
 
 
-    public MarketEntityTestBuilder(MarketEntity.Builder builder) {
+    public MarketOrderEntityTestBuilder(MarketOrderEntity.Builder builder) {
         this.builder = Required.notNull(builder, "builder");
         this.builder
                 //.withId("1111111111")
                 .withSsn("1111111111")
+                .withOrderId("1111111111-1")
                 .withInsertionTimestamp(Instant.now())
                 .withAmount(BigDecimal.TEN)
                 .withInstrument("ABB")
@@ -34,67 +35,72 @@ public class MarketEntityTestBuilder extends AbstractTestBuilder<MarketEntity> {
                         .build())
                 .withSide(Side.BUY)
                 .withMarketPriceType(MarketPriceType.MARKET)
-                .withMarketBookId("ABB/SEK")
+                .withOrderBookId("ABB/SEK")
                 .withNoOfItemsToMatch(100)
                 .withAllItemsMatched(false);
     }
 
-    public MarketEntityTestBuilder withSsn(String ssn){
+    public MarketOrderEntityTestBuilder withSsn(String ssn){
         builder.withSsn(ssn);
         return this;
     }
 
-    public MarketEntityTestBuilder withAmount(BigDecimal amount){
+    public MarketOrderEntityTestBuilder withOrderId(String orderId){
+        builder.withOrderId(orderId);
+        return this;
+    }
+
+    public MarketOrderEntityTestBuilder withAmount(BigDecimal amount){
         builder.withAmount(amount);
         return this;
     }
 
-    public MarketEntityTestBuilder withInstrument(String instrument){
+    public MarketOrderEntityTestBuilder withInstrument(String instrument){
         builder.withInstrument(instrument);
         return this;
     }
 
-    public MarketEntityTestBuilder withNoOfItems(Integer noOfItems){
+    public MarketOrderEntityTestBuilder withNoOfItems(Integer noOfItems){
         builder.withNoOfItems(noOfItems);
         return this;
     }
 
-     public MarketEntityTestBuilder withMinMaxValue(Money money){
+     public MarketOrderEntityTestBuilder withMinMaxValue(Money money){
         builder.withMinMaxValue(money);
         return this;
     }
 
-    public MarketEntityTestBuilder withSide(Side side){
+    public MarketOrderEntityTestBuilder withSide(Side side){
         builder.withSide(side);
         return this;
     }
-    public MarketEntityTestBuilder withMarketPriceType(MarketPriceType marketPriceType){
+    public MarketOrderEntityTestBuilder withMarketPriceType(MarketPriceType marketPriceType){
         builder.withMarketPriceType(marketPriceType);
         return this;
     }
 
-    public MarketEntityTestBuilder withMarketBookId(String marketBookId){
-        builder.withMarketBookId(marketBookId);
+    public MarketOrderEntityTestBuilder withOrderBookId(String marketBookId){
+        builder.withOrderBookId(marketBookId);
         return this;
     }
 
-    public MarketEntityTestBuilder withNoOfMatchedItems(Integer noOfMatchedItems){
+    public MarketOrderEntityTestBuilder withNoOfMatchedItems(Integer noOfMatchedItems){
         builder.withNoOfItemsToMatch(noOfMatchedItems);
         return this;
     }
 
-    public MarketEntityTestBuilder withAllItemsMatched(Boolean allItemsMatched){
+    public MarketOrderEntityTestBuilder withAllItemsMatched(Boolean allItemsMatched){
         builder.withAllItemsMatched(allItemsMatched);
         return this;
     }
 
 
-    public static MarketEntityTestBuilder builder() {
-        return new MarketEntityTestBuilder(MarketEntity.builder());
+    public static MarketOrderEntityTestBuilder builder() {
+        return new MarketOrderEntityTestBuilder(MarketOrderEntity.builder());
     }
 
     @Override
-    public MarketEntity build() {
+    public MarketOrderEntity build() {
         return builder.build();
     }
 }

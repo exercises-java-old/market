@@ -28,5 +28,13 @@
             <groupId>com.lexicon</groupId>
             <artifactId>market-component-service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.so4it.sugar</groupId>
+            <artifactId>queue</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.so4it.sugar</groupId>
+            <artifactId>gigaspaces-parallel-queue</artifactId>
+        </dependency>
     </dependencies>
 </project>
