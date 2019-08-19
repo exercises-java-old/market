@@ -5,7 +5,6 @@ import se.lexicon.market.component.domain.MarketPriceType;
 import se.lexicon.market.component.domain.Money;
 import se.lexicon.market.component.domain.Side;
 import se.lexicon.market.component.entity.MarketOrderEntity;
-import se.lexicon.market.component.event.PlaceMarketOrderEvent;
 import se.lexicon.market.componment.dao.MarketOrderDao;
 
 import java.util.Currency;
@@ -27,28 +26,29 @@ public class MarketOrderParallelQueueConsumer {
      * This will be called by the parallel queue framework guaranteeing that only one order for the same
      * accoutn id will be handled at the time
      *
-     * @param MarketOrderEntity
+     * @param placeMarketOrderEvent
      */
     @ParallelQueueConsumer
-    public void placeOrder (MarketOrderEntity marketOrderEntity) {
+    public void placeOrder (MarketOrderEntity placeMarketOrderEvent) {
 
-        MatchMarketOrder (marketOrderEntity);
-//
+        //MatchMarketOrder (placeMarketOrderEvent.getMarketOrderEntity());
+        MatchMarketOrder (placeMarketOrderEvent);
+
 //        MatchMarketOrder
-//                (MarketOrderEntity.builder()
-//                //.withId(placeMarketOrderEvent.getId())
-//                .withSsn(placeMarketOrderEvent.getSsn())
-//                .withAmount(placeMarketOrderEvent.getAmount())
-//                .withInsertionTimestamp(placeMarketOrderEvent.getInsertionTimestamp())
-//                .withNoOfItems(placeMarketOrderEvent.getNoOfItems())
-//                .withSide(placeMarketOrderEvent.getSide())
-//                .withMarketPriceType(placeMarketOrderEvent.getMarketPriceType())
-//                .withOrderBookId(placeMarketOrderEvent.getOrderBookId())
-//                .withMinMaxValue(placeMarketOrderEvent.getMinMaxValue())
-//                .withInstrument(placeMarketOrderEvent.getInstrument())
-//                .withNoOfItemsToMatch(placeMarketOrderEvent.getNoOfItemsToMatch())
-//                .withAllItemsMatched(false)
-//                .build());
+//            (MarketOrderEntity.builder()
+//            .withId(placeMarketOrderEvent.getMarketOrderEntity().getId())
+//            .withSsn(placeMarketOrderEvent.getMarketOrderEntity().getSsn())
+//            .withAmount(placeMarketOrderEvent.getMarketOrderEntity().getAmount())
+//            .withInsertionTimestamp(placeMarketOrderEvent.getMarketOrderEntity().getInsertionTimestamp())
+//            .withNoOfItems(placeMarketOrderEvent.getMarketOrderEntity().getNoOfItems())
+//            .withSide(placeMarketOrderEvent.getMarketOrderEntity().getSide())
+//            .withMarketPriceType(placeMarketOrderEvent.getMarketOrderEntity().getMarketPriceType())
+//            .withOrderBookId(placeMarketOrderEvent.getMarketOrderEntity().getOrderBookId())
+//            .withMinMaxValue(placeMarketOrderEvent.getMarketOrderEntity().getMinMaxValue())
+//            .withInstrument(placeMarketOrderEvent.getMarketOrderEntity().getInstrument())
+//            .withNoOfItemsToMatch(placeMarketOrderEvent.getMarketOrderEntity().getNoOfItems())
+//            .withAllItemsMatched(false)
+//            .build());
     }
 
     private void MatchMarketOrder (MarketOrderEntity marketOrderEntity) {

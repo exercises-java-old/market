@@ -5,6 +5,7 @@ import se.lexicon.market.component.domain.*;
 import com.so4it.common.util.object.Required;
 import com.so4it.gs.rpc.ServiceExport;
 import se.lexicon.market.component.entity.MarketOrderEntity;
+import se.lexicon.market.component.event.PlaceMarketOrderEvent;
 import se.lexicon.market.componment.dao.MarketOrderDao;
 
 import java.math.BigDecimal;
@@ -12,7 +13,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @ServiceExport({MarketOrderComponentService.class})
-public class MarketOrderComponentServiceImpl implements MarketOrderComponentService {
+public class
+MarketOrderComponentServiceImpl implements MarketOrderComponentService {
 
     private MarketOrderDao marketOrderDao;
 
@@ -54,41 +56,52 @@ public class MarketOrderComponentServiceImpl implements MarketOrderComponentServ
                         .build()).collect(Collectors.toSet()));
     }
 
-
-//    @Override
-//    public  MarketBooks getMarketBooks (MarketEntity marketEntity) {
-//        return MarketBooks.valueOf(marketBookDao.readAll(
-//            MarketBookEntity.templateBuilder().withSsn(marketEntity.getSsn()).withMarketId(marketEntity.getId()).build()).stream()
-//            .map(obentity -> MarketBook.builder()
-//                    .withId(obentity.getId())
-//                    .withInstrument(obentity.getInstrument())
-//                    .withNoOfItems(obentity.getNoOfItems())
-//                    .withMinMaxValue(obentity.getMinMaxValue())
-//                    .withSide(obentity.getSide())
-//                    .withPhase(obentity.getPhase())
-//                     .build())
-//            .collect(Collectors.toSet()));
-//    };
-
     @Override
     public Boolean placeMarketOrder(MarketOrder marketOrder) {
 
-        return orderParallelQueue.offer(MarketOrderEntity.builder()
-                .withId(marketOrder.getId())
-                .withSsn(marketOrder.getSsn())
-                .withOrderId(marketOrder.getOrderId())
-                .withAmount(marketOrder.getAmount())
-                .withInstrument(marketOrder.getInstrument())
-                .withNoOfItems(marketOrder.getNoOfItems())
-                .withMinMaxValue(marketOrder.getMinMaxValue())
-                .withSide(marketOrder.getSide())
-                .withMarketPriceType(marketOrder.getMarketPriceType())
-                .withOrderBookId(marketOrder.getOrderBookId())
-                .withInsertionTimestamp(marketOrder.getInsertionTimestamp())
-                .withNoOfItemsToMatch(marketOrder.getNoOfItems())
-                .withAllItemsMatched(false) // MAKE SURE NO ONE ELSE WILL MATCH AGAINST THIS DURING IT IS IN THE QUEUE
-                .build());
+        Boolean offerOk = orderParallelQueue.offer(MarketOrderEntity.builder()
+                        .withId(marketOrder.getId())
+                        .withSsn(marketOrder.getSsn())
+                        .withOrderId(marketOrder.getOrderId())
+                        .withAmount(marketOrder.getAmount())
+                        .withInstrument(marketOrder.getInstrument())
+                        .withNoOfItems(marketOrder.getNoOfItems())
+                        .withMinMaxValue(marketOrder.getMinMaxValue())
+                        .withSide(marketOrder.getSide())
+                        .withMarketPriceType(marketOrder.getMarketPriceType())
+                        .withOrderBookId(marketOrder.getOrderBookId())
+                        .withInsertionTimestamp(marketOrder.getInsertionTimestamp())
+                        .withNoOfItemsToMatch(marketOrder.getNoOfItems())
+                        .withAllItemsMatched(false)
+                        .build());
 
+//        Boolean offerOk = orderParallelQueue.offer(PlaceMarketOrderEvent.builder()
+//                .withInstrument(marketOrder.getInstrument())
+//                .withOrderEntity(MarketOrderEntity.builder()
+//                        .withId(marketOrder.getId())
+//                        .withSsn(marketOrder.getSsn())
+//                        .withOrderId(marketOrder.getOrderId())
+//                        .withAmount(marketOrder.getAmount())
+//                        .withInstrument(marketOrder.getInstrument())
+//                        .withNoOfItems(marketOrder.getNoOfItems())
+//                        .withMinMaxValue(marketOrder.getMinMaxValue())
+//                        .withSide(marketOrder.getSide())
+//                        .withMarketPriceType(marketOrder.getMarketPriceType())
+//                        .withOrderBookId(marketOrder.getOrderBookId())
+//                        .withInsertionTimestamp(marketOrder.getInsertionTimestamp())
+//                        .withNoOfItemsToMatch(marketOrder.getNoOfItems())
+//                        .withAllItemsMatched(false)
+//                        .build())
+//                .withCounter(1).build());
+
+//        Boolean offerOk = orderParallelQueue.offer(PlaceMarketOrderEvent.builder()
+//                .withInstrument(marketOrder.getInstrument())
+//                .withOrder(marketOrder)
+//                .withCounter(1).build());
+
+        // PUT IN ANOTHER QUEUE and try to put it in again from there
+
+        return offerOk;
     }
 
     @Override

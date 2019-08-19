@@ -1,6 +1,5 @@
-package se.lexicon.account.api.mapper;
+package se.lexicon.market.api.mapper;
 
-import se.lexicon.account.component.domain.AccountBalance;
 import com.so4it.api.mapper.ValueMapper;
 import com.so4it.common.util.Mapper;
 
@@ -8,9 +7,9 @@ import com.so4it.common.util.Mapper;
 /**
  * @author Magnus Poromaa {@literal <mailto:magnus.poromaa@so4it.com/>}
  */
-public final class AccountBalanceApiMapper {
+public final class OrderApiMapper {
 
-    public static AccountBalance map(com.seb.account.api.AccountBalance accountBalance){
+    public static Order map(se.lexicon.order.api.Order order){
 
         return Mapper.of(accountBalance,AccountBalance:: builder)
                 .map(com.seb.account.api.AccountBalance::getId,AccountBalance.Builder::withId)

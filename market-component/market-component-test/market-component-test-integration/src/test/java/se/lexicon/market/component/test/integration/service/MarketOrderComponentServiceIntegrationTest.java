@@ -43,8 +43,8 @@ public class MarketOrderComponentServiceIntegrationTest {
 
         MarketOrderComponentService marketOrderComponentService = MarketOrderComponentServiceIntegrationTestSuite.getImportContext().getBean(MarketOrderComponentService.class);
 
-        MarketOrder market = MarketOrderTestBuilder.builder().withSsn("111111").withInstrument("ABB").withAmount(BigDecimal.ONE).build();
-        marketOrderComponentService.placeMarketOrder(market);
+        MarketOrder marketOrder = MarketOrderTestBuilder.builder().withSsn("111111").withInstrument("ABB").withAmount(BigDecimal.ONE).build();
+        marketOrderComponentService.placeMarketOrder(marketOrder);
 
         Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketOrderComponentService.getMarketOrders("ABB","111111").size() == 1));
 

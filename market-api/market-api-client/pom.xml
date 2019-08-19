@@ -39,5 +39,17 @@
             <groupId>com.so4it.sugar</groupId>
             <artifactId>metric-springframework</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.lexicon</groupId>
+            <artifactId>market-component-domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.lexicon</groupId>
+            <artifactId>market-component-domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

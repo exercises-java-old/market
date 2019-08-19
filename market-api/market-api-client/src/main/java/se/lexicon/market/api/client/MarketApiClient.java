@@ -1,15 +1,17 @@
-package se.lexicon.account.api.client;
+package se.lexicon.market.api.client;
 
+import se.lexicon.market.component.domain.MarketOrder;
+import se.lexicon.market.component.domain.MarketOrders;
 
-import se.lexicon.account.component.domain.AccountBalance;
-import se.lexicon.account.component.domain.AccountTransaction;
-import se.lexicon.account.component.domain.CreateAccountBalanceRequest;
-import se.lexicon.account.component.domain.CreateAccountTransactionRequest;
+import java.util.Set;
 
-public interface AccountApiClient {
-    String DEFAULT_API_BEAN_NAME = "accountApiClient";
+public interface MarketApiClient {
+    String DEFAULT_API_BEAN_NAME = "marketApiClient";
 
-    AccountBalance createAccountBalance(CreateAccountBalanceRequest request);
-    AccountTransaction createAccountTransaction(CreateAccountTransactionRequest request);
+    Set<String> getInstruments(String ssn);
+    MarketOrders getMarketOrders(String instrument, String ssn);
+
+    // Delivering back the orderId so it later can be mached with the deals
+    Boolean placeMarketOrder(MarketOrder marketOrder);
 
 }

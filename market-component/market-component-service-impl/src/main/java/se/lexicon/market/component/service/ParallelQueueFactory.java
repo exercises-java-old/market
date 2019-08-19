@@ -9,7 +9,7 @@ import com.so4it.queue.ParallelQueue;
 import org.openspaces.core.GigaSpace;
 import org.springframework.transaction.PlatformTransactionManager;
 import se.lexicon.market.component.entity.MarketOrderEntity;
-import se.lexicon.market.component.event.PlaceMarketOrderEvent;
+//import se.lexicon.market.component.event.PlaceMarketOrderEvent;
 
 public class ParallelQueueFactory {
 
