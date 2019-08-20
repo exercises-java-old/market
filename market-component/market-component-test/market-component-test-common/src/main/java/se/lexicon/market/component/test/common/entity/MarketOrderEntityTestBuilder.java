@@ -1,7 +1,7 @@
 package se.lexicon.market.component.test.common.entity;
 
 import se.lexicon.market.component.domain.Money;
-import se.lexicon.market.component.domain.MarketPriceType;
+import se.lexicon.market.component.domain.OrderPriceType;
 import se.lexicon.market.component.domain.Side;
 import se.lexicon.market.component.entity.MarketOrderEntity;
 import com.so4it.common.util.object.Required;
@@ -34,7 +34,7 @@ public class MarketOrderEntityTestBuilder extends AbstractTestBuilder<MarketOrde
                         .withCurrency(Currency.getInstance("SEK"))
                         .build())
                 .withSide(Side.BUY)
-                .withMarketPriceType(MarketPriceType.MARKET)
+                .withOrderPriceType(OrderPriceType.MARKET)
                 .withOrderBookId("ABB/SEK")
                 .withNoOfItemsToMatch(100)
                 .withAllItemsMatched(false);
@@ -74,8 +74,8 @@ public class MarketOrderEntityTestBuilder extends AbstractTestBuilder<MarketOrde
         builder.withSide(side);
         return this;
     }
-    public MarketOrderEntityTestBuilder withMarketPriceType(MarketPriceType marketPriceType){
-        builder.withMarketPriceType(marketPriceType);
+    public MarketOrderEntityTestBuilder withMarketPriceType(OrderPriceType orderPriceType){
+        builder.withOrderPriceType(orderPriceType);
         return this;
     }
 

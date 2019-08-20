@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
 
     <modules>
-         <module>market-api</module>
          <module>market-component</module>
      </modules>
 

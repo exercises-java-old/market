@@ -1,7 +1,7 @@
 package se.lexicon.market.component.service;
 
 import com.so4it.queue.ParallelQueueConsumer;
-import se.lexicon.market.component.domain.MarketPriceType;
+import se.lexicon.market.component.domain.OrderPriceType;
 import se.lexicon.market.component.domain.Money;
 import se.lexicon.market.component.domain.Side;
 import se.lexicon.market.component.entity.MarketOrderEntity;
@@ -104,7 +104,7 @@ public class MarketOrderParallelQueueConsumer {
                         .withInsertionTimestamp(marketOrderEntity.getInsertionTimestamp())
                         .withNoOfItems(marketOrderEntity.getNoOfItems())
                         .withSide(marketOrderEntity.getSide())
-                        .withMarketPriceType(marketOrderEntity.getMarketPriceType())
+                        .withOrderPriceType(marketOrderEntity.getOrderPriceType())
                         .withOrderBookId(marketOrderEntity.getOrderBookId())
                         .withMinMaxValue(marketOrderEntity.getMinMaxValue())
                         .withInstrument(marketOrderEntity.getInstrument())
@@ -129,7 +129,7 @@ public class MarketOrderParallelQueueConsumer {
                     .withInsertionTimestamp(marketOrderEntity.getInsertionTimestamp())
                     .withNoOfItems(marketOrderEntity.getNoOfItems())
                     .withSide(marketOrderEntity.getSide())
-                    .withMarketPriceType(marketOrderEntity.getMarketPriceType())
+                    .withOrderPriceType(marketOrderEntity.getOrderPriceType())
                     .withOrderBookId(marketOrderEntity.getOrderBookId())
                     .withMinMaxValue(marketOrderEntity.getMinMaxValue())
                     .withInstrument(marketOrderEntity.getInstrument())
@@ -147,7 +147,7 @@ public class MarketOrderParallelQueueConsumer {
                     .withInsertionTimestamp(bestMatchingMarket.getInsertionTimestamp())
                     .withNoOfItems(bestMatchingMarket.getNoOfItems())
                     .withSide(bestMatchingMarket.getSide())
-                    .withMarketPriceType(bestMatchingMarket.getMarketPriceType())
+                    .withOrderPriceType(bestMatchingMarket.getOrderPriceType())
                     .withOrderBookId(bestMatchingMarket.getOrderBookId())
                     .withMinMaxValue(bestMatchingMarket.getMinMaxValue())
                     .withInstrument(bestMatchingMarket.getInstrument())
@@ -215,11 +215,11 @@ public class MarketOrderParallelQueueConsumer {
 
     private Money CalculatePrice (Money lastPrice, MarketOrderEntity seller, MarketOrderEntity buyer) {
 
-        if (buyer.getMarketPriceType() == MarketPriceType.MARKET && seller.getMarketPriceType() == MarketPriceType.MARKET) {
+        if (buyer.getOrderPriceType() == OrderPriceType.MARKET && seller.getOrderPriceType() == OrderPriceType.MARKET) {
             return lastPrice;
-        } else if (buyer.getMarketPriceType() == MarketPriceType.MARKET && seller.getMarketPriceType() != MarketPriceType.MARKET) {
+        } else if (buyer.getOrderPriceType() == OrderPriceType.MARKET && seller.getOrderPriceType() != OrderPriceType.MARKET) {
             return seller.getMinMaxValue();
-        } else if (seller.getMarketPriceType() == MarketPriceType.MARKET && buyer.getMarketPriceType() != MarketPriceType.MARKET) {
+        } else if (seller.getOrderPriceType() == OrderPriceType.MARKET && buyer.getOrderPriceType() != OrderPriceType.MARKET) {
             return buyer.getMinMaxValue();
         }
 

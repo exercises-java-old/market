@@ -36,7 +36,7 @@ public class MarketOrder extends ValueObject implements Serializable {
 
     private Side side;         // Sell or Buy
 
-    private MarketPriceType marketPriceType; // BUY/SELL at MARKET or LIMITED price
+    private OrderPriceType orderPriceType; // BUY/SELL at MARKET or LIMITED price
 
     private String orderBookId;
 
@@ -52,7 +52,7 @@ public class MarketOrder extends ValueObject implements Serializable {
         this.noOfItems = Required.notNull(builder.noOfItems,"noOfItems");
         this.minMaxValue = Required.notNull(builder.minMaxValue,"minMaxValue");
         this.side = Required.notNull(builder.side,"side");
-        this.marketPriceType = Required.notNull(builder.marketPriceType,"marketPriceType");
+        this.orderPriceType = Required.notNull(builder.orderPriceType,"marketPriceType");
         this.insertionTimestamp = Required.notNull(builder.insertionTimestamp,"insertionTimestamp");
         this.orderBookId = Required.notNull(builder.orderBookId,"orderBookId");
     }
@@ -94,11 +94,11 @@ public class MarketOrder extends ValueObject implements Serializable {
         return side;
     }
 
-    public MarketPriceType getMarketPriceType() { return marketPriceType; }
+    public OrderPriceType getOrderPriceType() { return orderPriceType; }
 
     @Override
     protected Object[] getIdFields() {
-        return new Object[]{amount, ssn, insertionTimestamp, instrument, noOfItems, minMaxValue, side, marketPriceType};
+        return new Object[]{amount, ssn, insertionTimestamp, instrument, noOfItems, minMaxValue, side, orderPriceType};
     }
 
     public static Builder builder(){
@@ -123,7 +123,7 @@ public class MarketOrder extends ValueObject implements Serializable {
 
         private Side side;
 
-        private MarketPriceType marketPriceType;
+        private OrderPriceType orderPriceType;
 
         private String orderBookId;
 
@@ -169,8 +169,8 @@ public class MarketOrder extends ValueObject implements Serializable {
             return this;
         }
 
-        public Builder withMarketPriceType(MarketPriceType marketPriceType){
-            this.marketPriceType = marketPriceType;
+        public Builder withMarketPriceType(OrderPriceType orderPriceType){
+            this.orderPriceType = orderPriceType;
             return this;
         }
 

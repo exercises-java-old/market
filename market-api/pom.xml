@@ -16,12 +16,11 @@
          <module>market-api-server</module>
         <module>market-api-common</module>
         <module>market-api-mapper</module>
-        <!--
-        <module>market-api-common</module>
-        <module>market-api-mapper</module>
         <module>market-api-pu</module>
-        <module>market-api-server</module>
         <module>market-api-test</module>
+        <!--
+         <module>market-api-pu</module>
+         <module>market-api-test</module>
         -->
     </modules>
 

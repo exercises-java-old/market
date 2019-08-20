@@ -5,7 +5,6 @@ import se.lexicon.market.component.domain.*;
 import com.so4it.common.util.object.Required;
 import com.so4it.gs.rpc.ServiceExport;
 import se.lexicon.market.component.entity.MarketOrderEntity;
-import se.lexicon.market.component.event.PlaceMarketOrderEvent;
 import se.lexicon.market.componment.dao.MarketOrderDao;
 
 import java.math.BigDecimal;
@@ -50,7 +49,7 @@ MarketOrderComponentServiceImpl implements MarketOrderComponentService {
                         .withNoOfItems(entity.getNoOfItems())
                         .withMinMaxValue(entity.getMinMaxValue())
                         .withSide(entity.getSide())
-                        .withMarketPriceType(entity.getMarketPriceType())
+                        .withMarketPriceType(entity.getOrderPriceType())
                         .withInsertionTimestamp(entity.getInsertionTimestamp())
                         .withOrderBookId(entity.getOrderBookId())
                         .build()).collect(Collectors.toSet()));
@@ -68,7 +67,7 @@ MarketOrderComponentServiceImpl implements MarketOrderComponentService {
                         .withNoOfItems(marketOrder.getNoOfItems())
                         .withMinMaxValue(marketOrder.getMinMaxValue())
                         .withSide(marketOrder.getSide())
-                        .withMarketPriceType(marketOrder.getMarketPriceType())
+                        .withOrderPriceType(marketOrder.getOrderPriceType())
                         .withOrderBookId(marketOrder.getOrderBookId())
                         .withInsertionTimestamp(marketOrder.getInsertionTimestamp())
                         .withNoOfItemsToMatch(marketOrder.getNoOfItems())

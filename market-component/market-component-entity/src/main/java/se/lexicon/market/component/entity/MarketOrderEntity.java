@@ -9,7 +9,7 @@ import com.so4it.common.util.object.Required;
 import com.so4it.component.entity.AbstractEntityBuilder;
 import com.so4it.component.entity.IdEntity;
 import se.lexicon.market.component.domain.Money;
-import se.lexicon.market.component.domain.MarketPriceType;
+import se.lexicon.market.component.domain.OrderPriceType;
 import se.lexicon.market.component.domain.Side;
 
 import java.math.BigDecimal;
@@ -42,7 +42,7 @@ public class MarketOrderEntity extends IdEntity<String> {
 
     private Side side;         // Sell or Buy
 
-    private MarketPriceType marketPriceType; // BUY/SELL at MARKET or LIMITED price
+    private OrderPriceType orderPriceType; // BUY/SELL at MARKET or LIMITED price
 
     private String orderBookId;
 
@@ -64,7 +64,7 @@ public class MarketOrderEntity extends IdEntity<String> {
         this.noOfItems = Required.notNull(builder.noOfItems,"noOfItems",builder.isTemplate());
         this.minMaxValue = Required.notNull(builder.minMaxValue,"minMaxValue",builder.isTemplate());
         this.side = Required.notNull(builder.side,"side",builder.isTemplate());
-        this.marketPriceType = Required.notNull(builder.marketPriceType,"marketPriceType",builder.isTemplate());
+        this.orderPriceType = Required.notNull(builder.orderPriceType,"marketPriceType",builder.isTemplate());
         this.orderBookId = Required.notNull(builder.orderBookId,"orderBookId",builder.isTemplate());
         this.noOfItemsToMatch = Required.notNull(builder.noOfItemsToMatch,"noOfMatchedItems",builder.isTemplate());
         this.allItemsMatched = Required.notNull(builder.allItemsMatched,"allItemsMatched",builder.isTemplate());
@@ -142,12 +142,12 @@ public class MarketOrderEntity extends IdEntity<String> {
         this.side = side;
     }
 
-    public MarketPriceType getMarketPriceType() {
-        return marketPriceType;
+    public OrderPriceType getOrderPriceType() {
+        return orderPriceType;
     }
 
-    private void setMarketPriceType(MarketPriceType marketPriceType) {
-        this.marketPriceType = marketPriceType;
+    private void setOrderPriceType(OrderPriceType orderPriceType) {
+        this.orderPriceType = orderPriceType;
     }
 
     public String getOrderBookId() {
@@ -205,7 +205,7 @@ public class MarketOrderEntity extends IdEntity<String> {
 
         private Side side;         // Sell or Buy
 
-        private MarketPriceType marketPriceType;
+        private OrderPriceType orderPriceType;
 
         private String orderBookId;
 
@@ -262,8 +262,8 @@ public class MarketOrderEntity extends IdEntity<String> {
             return this;
         }
 
-        public MarketOrderEntity.Builder withMarketPriceType(MarketPriceType marketPriceType) {
-            this.marketPriceType = marketPriceType;
+        public MarketOrderEntity.Builder withOrderPriceType(OrderPriceType orderPriceType) {
+            this.orderPriceType = orderPriceType;
             return this;
         }
 

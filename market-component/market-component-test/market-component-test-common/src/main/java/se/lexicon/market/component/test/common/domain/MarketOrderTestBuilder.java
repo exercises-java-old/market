@@ -31,7 +31,7 @@ public class MarketOrderTestBuilder extends AbstractTestBuilder<MarketOrder> {
                     .build())
                 .withInsertionTimestamp(Instant.now())
                 .withOrderBookId("ABB/SEK")
-                .withMarketPriceType(MarketPriceType.MARKET);
+                .withMarketPriceType(OrderPriceType.MARKET);
     }
 
     public static MarketOrderTestBuilder builder() {
@@ -74,8 +74,8 @@ public class MarketOrderTestBuilder extends AbstractTestBuilder<MarketOrder> {
         return this;
     }
 
-    public MarketOrderTestBuilder withMarketPriceType(MarketPriceType marketPriceType){
-        builder.withMarketPriceType(marketPriceType);
+    public MarketOrderTestBuilder withMarketPriceType(OrderPriceType orderPriceType){
+        builder.withMarketPriceType(orderPriceType);
         return this;
     }
 

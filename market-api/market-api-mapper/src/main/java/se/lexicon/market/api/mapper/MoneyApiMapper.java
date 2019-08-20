@@ -1,6 +1,5 @@
 package se.lexicon.market.api.mapper;
 
-import se.lexicon.market.component.domain.Money;
 import com.so4it.common.util.Mapper;
 
 import java.math.BigDecimal;
