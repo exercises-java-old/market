@@ -9,6 +9,7 @@ import com.so4it.queue.ParallelQueue;
 import org.openspaces.core.GigaSpace;
 import org.springframework.transaction.PlatformTransactionManager;
 import se.lexicon.market.component.entity.MarketOrderEntity;
+import se.lexicon.market.component.event.PlaceMarketOrderEvent;
 //import se.lexicon.market.component.event.PlaceMarketOrderEvent;
 
 public class ParallelQueueFactory {
@@ -28,7 +29,7 @@ public class ParallelQueueFactory {
         this.gigaSpaceParallelQueueConfiguration = Required.notNull(gigaSpaceParallelQueueConfiguration, "gigaSpaceParallelQueueConfiguration");
     }
 
-    public ParallelQueue<MarketOrderEntity> createTaskExecutorParallelQueue(MarketOrderParallelQueueConsumer workflowParallelQueueConsumer) {
+    public ParallelQueue<PlaceMarketOrderEvent> createTaskExecutorParallelQueue(MarketOrderParallelQueueConsumer workflowParallelQueueConsumer) {
         return GigaSpaceParallelQueueFactory.createSingleReadSingleTakeWithFifoStaticTemplateWithTransactionManager(
                 "OrderExecutor",
                 gigaSpace,
@@ -36,7 +37,7 @@ public class ParallelQueueFactory {
                 mBeanRegistry,
                 gigaSpaceParallelQueueConfiguration,
                 workflowParallelQueueConsumer,
-                new SQLQuery<>(MarketOrderEntity.class, ""));
+                new SQLQuery<>(PlaceMarketOrderEvent.class, ""));
     }
 
 }

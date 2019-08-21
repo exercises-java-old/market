@@ -5,6 +5,7 @@ import se.lexicon.market.component.domain.*;
 import com.so4it.common.util.object.Required;
 import com.so4it.gs.rpc.ServiceExport;
 import se.lexicon.market.component.entity.MarketOrderEntity;
+import se.lexicon.market.component.event.PlaceMarketOrderEvent;
 import se.lexicon.market.componment.dao.MarketOrderDao;
 
 import java.math.BigDecimal;
@@ -17,10 +18,10 @@ MarketOrderComponentServiceImpl implements MarketOrderComponentService {
 
     private MarketOrderDao marketOrderDao;
 
-    private ParallelQueue<MarketOrderEntity> orderParallelQueue;
+    private ParallelQueue<PlaceMarketOrderEvent> orderParallelQueue;
 
 
-    public MarketOrderComponentServiceImpl(MarketOrderDao marketOrderDao,ParallelQueue<MarketOrderEntity> orderParallelQueue) {
+    public MarketOrderComponentServiceImpl(MarketOrderDao marketOrderDao,ParallelQueue<PlaceMarketOrderEvent> orderParallelQueue) {
 
         this.marketOrderDao = Required.notNull(marketOrderDao,"marketOrderDao");
         this.orderParallelQueue = Required.notNull(orderParallelQueue,"orderParallelQueue");
@@ -58,20 +59,11 @@ MarketOrderComponentServiceImpl implements MarketOrderComponentService {
     @Override
     public Boolean placeMarketOrder(MarketOrder marketOrder) {
 
-        Boolean offerOk = orderParallelQueue.offer(MarketOrderEntity.builder()
-                        .withId(marketOrder.getId())
-                        .withSsn(marketOrder.getSsn())
-                        .withOrderId(marketOrder.getOrderId())
-                        .withAmount(marketOrder.getAmount())
+        Boolean offerOk = orderParallelQueue.offer(PlaceMarketOrderEvent.builder()
+                         //.withId(marketOrder.getId())
                         .withInstrument(marketOrder.getInstrument())
-                        .withNoOfItems(marketOrder.getNoOfItems())
-                        .withMinMaxValue(marketOrder.getMinMaxValue())
-                        .withSide(marketOrder.getSide())
-                        .withOrderPriceType(marketOrder.getOrderPriceType())
-                        .withOrderBookId(marketOrder.getOrderBookId())
-                        .withInsertionTimestamp(marketOrder.getInsertionTimestamp())
-                        .withNoOfItemsToMatch(marketOrder.getNoOfItems())
-                        .withAllItemsMatched(false)
+                        .withCounter(1)
+                        .withMarketOrder(marketOrder)
                         .build());
 
 //        Boolean offerOk = orderParallelQueue.offer(PlaceMarketOrderEvent.builder()

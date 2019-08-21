@@ -23,7 +23,7 @@ import java.util.Currency;
  * @author Magnus Poromaa {@literal <mailto:magnus.poromaa@so4it.com/>}
  */
 @Category(IntegrationTest.class)
-@Ignore
+//@Ignore
 public class MarketOrderComponentServiceIntegrationTest {
 
     @ClassRule

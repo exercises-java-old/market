@@ -54,11 +54,11 @@ public class PlaceMarketOrderEvent extends IdEntity<String> {
 
     private void setInstrument(String instrument) { this.instrument = instrument; }
 
-    public MarketOrder getMarketOrderEntity() {
+    public MarketOrder getMarketOrder() {
         return marketOrder;
     }
 
-    private void setOrderEntity(MarketOrder marketOrderEntity) {
+    private void setMarketOrder(MarketOrder marketOrder) {
         this.marketOrder = marketOrder;
     }
 
@@ -103,7 +103,7 @@ public class PlaceMarketOrderEvent extends IdEntity<String> {
             return this;
         }
 
-        public PlaceMarketOrderEvent.Builder withOrder(MarketOrder marketOrder) {
+        public PlaceMarketOrderEvent.Builder withMarketOrder(MarketOrder marketOrder) {
             this.marketOrder = marketOrder;
             return this;
         }

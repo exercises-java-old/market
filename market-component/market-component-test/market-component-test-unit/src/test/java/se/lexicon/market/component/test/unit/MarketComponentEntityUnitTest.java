@@ -11,11 +11,14 @@ import org.junit.experimental.categories.Category;
 @Category(UnitTest.class)
 public class MarketComponentEntityUnitTest {
 
-    private static final String PACKAGE_NAME = "se.lexicon.market.component.test.common.entity";
+    private static final String PACKAGE_NAME  = "se.lexicon.market.component.test.common.entity";
+    private static final String PACKAGE_NAME2 = "se.lexicon.market.component.test.common.event";
 
     @Test
     public void testEntityCompliance() {
 
         TestBuilderExecutor.execute(PACKAGE_NAME, EntityMatchers.getMatchers());
+
+        TestBuilderExecutor.execute(PACKAGE_NAME2, EntityMatchers.getMatchers());
     }
 }
