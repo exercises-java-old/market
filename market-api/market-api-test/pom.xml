@@ -12,9 +12,11 @@
     <packaging>pom</packaging>
 
     <modules>
+        <!--
         <module>market-api-test-common</module>
         <module>market-api-test-integration</module>
         <module>market-api-test-unit</module>
+        -->
     </modules>
 
     <dependencyManagement>

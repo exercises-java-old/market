@@ -37,6 +37,7 @@
                         <configuration>
                             <apis>
                                 <api>
+                                    <repository>${api.specs.local.url}</repository>
                                     <name>market</name>
                                 </api>
                             </apis>

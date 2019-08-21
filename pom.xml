@@ -9,12 +9,9 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>market-api</module>
          <module>market-component</module>
      </modules>
-
-    <!--
-         <module>market-api</module>
-     -->
      <properties>
 
 
@@ -50,7 +47,7 @@
 
 
         <api.specs.sugar.url>https://raw.githubusercontent.com/lexicon-java-8/api-repository/develop/src/main/proto/</api.specs.sugar.url>
-        <api.specs.local.url>${project.basedir}/../../../api-repository/src/main/proto/api</api.specs.local.url>
+        <api.specs.local.url>${project.basedir}/../../../api-repository/src/main/proto</api.specs.local.url>
 
         <!--
             Default maven properties
@@ -94,7 +91,7 @@
         <maven.resources.plugin.version>3.0.1</maven.resources.plugin.version>
         <maven.jar.plugin.version>3.1.2</maven.jar.plugin.version>
         <maven.shade.plugin.version>2.4.3</maven.shade.plugin.version>
-        <maven.sugar.plugin.version>0.0.5-SNAPSHOT</maven.sugar.plugin.version>
+        <maven.sugar.plugin.version>0.0.7</maven.sugar.plugin.version>
         <maven.surefire.plugin.version>2.19.1</maven.surefire.plugin.version>
         <maven.war.plugin.version>2.5</maven.war.plugin.version>
         <maven.revapi.plugin.version>0.9.5</maven.revapi.plugin.version>
@@ -206,6 +203,68 @@
 
     <dependencyManagement>
         <dependencies>
+
+
+            <!--
+            -->
+            <dependency>
+                <groupId>com.lexicon</groupId>
+                <artifactId>market-api-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lexicon</groupId>
+                <artifactId>market-api-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lexicon</groupId>
+                <artifactId>market-api-mapper</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lexicon</groupId>
+                <artifactId>market-api-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!--
+            -->
+            <dependency>
+                <groupId>com.lexicon</groupId>
+                <artifactId>market-component-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lexicon</groupId>
+                <artifactId>market-component-dao</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lexicon</groupId>
+                <artifactId>market-component-dao-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lexicon</groupId>
+                <artifactId>market-component-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lexicon</groupId>
+                <artifactId>market-component-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lexicon</groupId>
+                <artifactId>market-component-service-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+
+
+
+
             <!--
                 BOM's
             -->

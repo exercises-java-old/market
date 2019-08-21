@@ -6,6 +6,7 @@ import com.so4it.test.common.probe.Poller;
 import com.so4it.test.common.probe.SatisfiedWhenTrueReturned;
 import com.so4it.test.gs.rule.ClearGigaSpaceTestRule;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -22,6 +23,7 @@ import java.util.Currency;
  * @author Magnus Poromaa {@literal <mailto:magnus.poromaa@so4it.com/>}
  */
 @Category(IntegrationTest.class)
+@Ignore
 public class MarketOrderComponentServiceIntegrationTest {
 
     @ClassRule
