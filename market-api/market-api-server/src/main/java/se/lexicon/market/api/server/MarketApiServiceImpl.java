@@ -41,7 +41,7 @@ public class MarketApiServiceImpl extends MarketApiServiceGrpc.MarketApiServiceI
             //if (request.getSerializedSize() = )
             Boolean Ok = marketOrderComponentClient.placeMarketOrder
                     (MarketOrder.builder()
-                            .withId(request.getId())
+                            //.withId(request.getId())
                             .withSsn(request.getSsn())
                             .withOrderId(request.getOrderid())
                             .withAmount(BigDecimal.valueOf(request.getAmount()))
@@ -51,7 +51,7 @@ public class MarketApiServiceImpl extends MarketApiServiceGrpc.MarketApiServiceI
                             .withOrderBookId(request.getOrderBookId())
                             .withSide(mapSide(request.getSide()))
                             .withOrderPriceType(mapOrderPrice(request.getOrderPriceType()))
-                            .withMinMaxValue(mapMoney (request.getMoney()))
+                            .withMinMaxValue(mapMoney (request.getMinMaxValue()))
                             .build());
 
             responseObserver.onNext(PlaceMarketOrderResponse.newBuilder().setOk(Ok).build());

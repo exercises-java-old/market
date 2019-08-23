@@ -27,7 +27,7 @@ public class MarketApiClientImpl implements MarketApiClient{
               .setAmount(marketOrder.getAmount().floatValue())
               .setInstrument(marketOrder.getInstrument())
               .setNoOfItems(marketOrder.getNoOfItems())
-              .setMoney(mapMoney(marketOrder.getMinMaxValue()))
+              .setMinMaxValue(mapMoney(marketOrder.getMinMaxValue()))
               .setSide(mapSide(marketOrder.getSide()))
               .setOrderPriceType(mapOrderPrice(marketOrder.getOrderPriceType()))
               .build());
