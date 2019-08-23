@@ -24,7 +24,7 @@ public class MarketOrder extends ValueObject implements Serializable {
 
     private BigDecimal amount;
 
-    // Timestamp from core system when the market was made
+    // Timestamp from core system when the market order was made
     private Instant insertionTimestamp;
 
     // original market
@@ -72,9 +72,7 @@ public class MarketOrder extends ValueObject implements Serializable {
         return orderBookId;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+    public BigDecimal getAmount() { return amount; }
 
     public Instant getInsertionTimestamp() { return insertionTimestamp; }
 
@@ -169,7 +167,7 @@ public class MarketOrder extends ValueObject implements Serializable {
             return this;
         }
 
-        public Builder withMarketPriceType(OrderPriceType orderPriceType){
+        public Builder withOrderPriceType(OrderPriceType orderPriceType){
             this.orderPriceType = orderPriceType;
             return this;
         }

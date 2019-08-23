@@ -12,15 +12,15 @@
     <packaging>pom</packaging>
 
     <modules>
-         <module>market-api-client</module>
-         <module>market-api-server</module>
+        <module>market-api-client</module>
+        <module>market-api-server</module>
         <module>market-api-common</module>
         <module>market-api-mapper</module>
         <module>market-api-pu</module>
         <module>market-api-test</module>
         <!--
-         <module>market-api-pu</module>
-         <module>market-api-test</module>
+
+        <module>market-api-pu</module>
         -->
     </modules>
 

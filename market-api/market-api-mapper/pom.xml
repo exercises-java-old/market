@@ -15,10 +15,12 @@
         <dependency>
             <groupId>com.lexicon</groupId>
             <artifactId>market-api-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.lexicon</groupId>
             <artifactId>market-component-domain</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.so4it.sugar</groupId>

@@ -1,5 +1,7 @@
-package se.lexicon.order.component.test.integration.client;
+package se.lexicon.market.component.test.integration.client;
 
+import com.so4it.test.common.probe.Poller;
+import com.so4it.test.common.probe.SatisfiedWhenTrueReturned;
 import se.lexicon.market.component.client.MarketOrderComponentClient;
 import se.lexicon.market.component.entity.MarketOrderEntity;
 import se.lexicon.market.component.test.common.domain.MarketOrderTestBuilder;
@@ -27,13 +29,11 @@ public class MarketOrderComponentClientIntegrationTest {
     public ClearGigaSpaceTestRule clearGigaSpaceTestRule = new ClearGigaSpaceTestRule(MarketOrderComponentServiceIntegrationTestSuite.getExportContext().getBean(GigaSpace.class));
 
     @Test
-    public void testCreatingMarketOrder(){
+    public void testCreatingMarketOrder() throws InterruptedException {
         MarketOrderComponentClient MarketorderComponentClient = MarketOrderComponentServiceIntegrationTestSuite.getImportContext().getBean(MarketOrderComponentClient.class);
         MarketorderComponentClient.placeMarketOrder(MarketOrderTestBuilder.builder().build());
 
-
-        Assert.assertEquals(1, MarketOrderComponentServiceIntegrationTestSuite.getExportContext().getBean(GigaSpace.class).count(MarketOrderEntity.templateBuilder().build()));
-
+        Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() -> MarketOrderComponentServiceIntegrationTestSuite.getExportContext().getBean(GigaSpace.class).count(MarketOrderEntity.templateBuilder().build()) == 1));
     }
 
 }

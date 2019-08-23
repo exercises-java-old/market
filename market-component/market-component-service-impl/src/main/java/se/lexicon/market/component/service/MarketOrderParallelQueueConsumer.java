@@ -36,7 +36,7 @@ public class MarketOrderParallelQueueConsumer {
 
         MatchMarketOrder
             (MarketOrderEntity.builder()
-            .withId(placeMarketOrderEvent.getMarketOrder().getId())
+            //.withId(placeMarketOrderEvent.getMarketOrder().getId())
             .withOrderId(placeMarketOrderEvent.getMarketOrder().getOrderId())
             .withSsn(placeMarketOrderEvent.getMarketOrder().getSsn())
             .withAmount(placeMarketOrderEvent.getMarketOrder().getAmount())
@@ -162,8 +162,13 @@ public class MarketOrderParallelQueueConsumer {
 //            MarketDealEntity marketDealEntity = marketDealDao.insert(MarketDealEntity.builder()
 //                .withInstrument(marketEntity.getInstrument())
 //                .withNoOfItems(noOfItemsToMatch)
-//                .withMarketId1(marketEntity.getOrderId())
-//                .withMarketId2(bestMatchingMarket.getOrderId())
+//                .withMarketId(marketEntity.getOrderId())
+//                .withPrice(CalculatePrice(marketEntity, bestMatchingMarket))
+//                .build());
+//            MarketDealEntity marketDealEntity = marketDealDao.insert(MarketDealEntity.builder()
+//                .withInstrument(marketEntity.getInstrument())
+//                .withNoOfItems(noOfItemsToMatch)
+//                .withMarketId(bestMatchingMarket.getOrderId())
 //                .withPrice(CalculatePrice(marketEntity, bestMatchingMarket))
 //                .build());
 

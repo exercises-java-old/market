@@ -12,11 +12,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <!--
         <module>market-api-test-common</module>
         <module>market-api-test-integration</module>
         <module>market-api-test-unit</module>
-        -->
     </modules>
 
     <dependencyManagement>
@@ -38,6 +36,11 @@
             <dependency>
                 <groupId>com.lexicon</groupId>
                 <artifactId>market-component-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lexicon</groupId>
+                <artifactId>market-component-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -67,7 +70,7 @@
             <dependency>
                 <groupId>com.so4it.sugar</groupId>
                 <artifactId>gigaspaces-test-common</artifactId>
-                <version>${sugar.gigaspaces.version}</version>
+                <version>${sugar.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.so4it.sugar</groupId>

@@ -13,10 +13,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.lexicon</groupId>
-            <artifactId>market-api-client</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.so4it.sugar</groupId>
             <artifactId>test-builder-common</artifactId>
         </dependency>

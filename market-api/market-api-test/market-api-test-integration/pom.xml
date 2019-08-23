@@ -15,36 +15,38 @@
         <dependency>
             <groupId>com.lexicon</groupId>
             <artifactId>market-api-client</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.lexicon</groupId>
             <artifactId>market-api-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.lexicon</groupId>
-            <artifactId>market-api-test-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.lexicon</groupId>
-            <artifactId>market-component-service</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.lexicon</groupId>
-            <artifactId>market-component-dao-impl</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.lexicon</groupId>
             <artifactId>market-component-client</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.lexicon</groupId>
+            <artifactId>market-component-service</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.lexicon</groupId>
             <artifactId>market-component-service-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.lexicon</groupId>
+            <artifactId>market-component-dao-impl</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.lexicon</groupId>
             <artifactId>market-component-test-common</artifactId>
+            <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>com.so4it.sugar</groupId>
             <artifactId>api-test-common</artifactId>
@@ -69,5 +71,6 @@
             <groupId>com.so4it.sugar</groupId>
             <artifactId>test-springframework</artifactId>
         </dependency>
+
     </dependencies>
 </project>

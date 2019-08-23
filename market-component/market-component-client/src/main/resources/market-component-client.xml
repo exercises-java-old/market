@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="marketComponentClient" class="se.lexicon.market.component.client.MarketOrderComponentClientImpl">
+    <bean id="marketOrderComponentClient" class="se.lexicon.market.component.client.MarketOrderComponentClientImpl">
         <constructor-arg name="marketOrderComponentService" ref="marketOrderComponentService"/>
     </bean>
 

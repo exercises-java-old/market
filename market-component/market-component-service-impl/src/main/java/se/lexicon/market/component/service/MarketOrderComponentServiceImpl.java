@@ -50,7 +50,7 @@ MarketOrderComponentServiceImpl implements MarketOrderComponentService {
                         .withNoOfItems(entity.getNoOfItems())
                         .withMinMaxValue(entity.getMinMaxValue())
                         .withSide(entity.getSide())
-                        .withMarketPriceType(entity.getOrderPriceType())
+                        .withOrderPriceType(entity.getOrderPriceType())
                         .withInsertionTimestamp(entity.getInsertionTimestamp())
                         .withOrderBookId(entity.getOrderBookId())
                         .build()).collect(Collectors.toSet()));

@@ -1,6 +1,6 @@
-package se.lexicon.account.api.test.integration;
+package se.lexicon.market.api.test.integration;
 
-import se.lexicon.invoice.component.service.AccountComponentServiceProvider;
+import se.lexicon.market.component.service.MarketOrderComponentServiceProvider;
 import com.so4it.api.test.common.ApiFrameworkCommonTest;
 import com.so4it.common.bean.MapBeanContext;
 import com.so4it.common.jmx.MBeanRegistry;
@@ -30,10 +30,10 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        AccountApiClientClientIntegrationTest.class
+        MarketApiClientIntegrationTest.class
 })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class AccountApiIntegrationTestSuite {
+public class MarketApiIntegrationTestSuite {
 
     private static final int LUS_PORT = PortUtil.nextFreePort();
 
@@ -70,10 +70,10 @@ public class AccountApiIntegrationTestSuite {
             COMPONENT_TEST_RULE = new SpringContextRule();
             COMPONENT_TEST_RULE.addXmlConfiguration("fault-tolerance-common.xml");
             COMPONENT_TEST_RULE.addXmlConfiguration("metric-springframework.xml");
-            COMPONENT_TEST_RULE.addXmlConfiguration("account-component-dao.xml");
-            COMPONENT_TEST_RULE.addXmlConfiguration("account-component-service.xml");
-            COMPONENT_TEST_RULE.addXmlConfiguration("account-component-test-space.xml");
-            COMPONENT_TEST_RULE.addXmlConfiguration("account-component-test-export.xml");
+            COMPONENT_TEST_RULE.addXmlConfiguration("market-component-dao.xml");
+            COMPONENT_TEST_RULE.addXmlConfiguration("market-component-service.xml");
+            COMPONENT_TEST_RULE.addXmlConfiguration("market-component-test-space.xml");
+            COMPONENT_TEST_RULE.addXmlConfiguration("market-component-test-export.xml");
             COMPONENT_TEST_RULE.addBean(MBeanRegistry.DEFAULT_BEAN_NAME, MBeanRegistryFactory.getDefaultRegistry());
             COMPONENT_TEST_RULE.addBean(ApiRegistryClient.DEFAULT_API_BEAN_NAME, API_REGISTRY);
             COMPONENT_TEST_RULE.addBean(ServiceRegistryClient.DEFAULT_API_BEAN_NAME, SERVICE_REGISTRY);
@@ -88,10 +88,10 @@ public class AccountApiIntegrationTestSuite {
             API_TEST_RULE = new SpringContextRule();
             API_TEST_RULE.addXmlConfiguration("fault-tolerance-common.xml");
             API_TEST_RULE.addXmlConfiguration("metric-springframework.xml");
-            API_TEST_RULE.addXmlConfiguration("account-component-client.xml");
-            API_TEST_RULE.addXmlConfiguration("account-component-test-import.xml");
-            API_TEST_RULE.addXmlConfiguration("account-api-server.xml");
-            API_TEST_RULE.addXmlConfiguration("account-api-server-export.xml");
+            API_TEST_RULE.addXmlConfiguration("market-component-client.xml");
+            API_TEST_RULE.addXmlConfiguration("market-component-test-import.xml");
+            API_TEST_RULE.addXmlConfiguration("market-api-server.xml");
+            API_TEST_RULE.addXmlConfiguration("market-api-server-export.xml");
             API_TEST_RULE.addBean(MBeanRegistry.DEFAULT_BEAN_NAME, MBeanRegistryFactory.getDefaultRegistry());
             API_TEST_RULE.addBean(ApiRegistryClient.DEFAULT_API_BEAN_NAME, API_REGISTRY);
             API_TEST_RULE.addBean(ServiceRegistryClient.DEFAULT_API_BEAN_NAME, SERVICE_REGISTRY);
@@ -120,7 +120,7 @@ public class AccountApiIntegrationTestSuite {
     public static ServiceBindingRule getServiceBindingRule() {
         if (SERVICE_BINDING_RULE == null) {
             SERVICE_BINDING_RULE = new ServiceBindingRule(SERVICE_BEAN_STATE_REGISTRY);
-            SERVICE_BINDING_RULE.addServiceProvider(AccountComponentServiceProvider.class);
+            SERVICE_BINDING_RULE.addServiceProvider(MarketOrderComponentServiceProvider.class);
         }
         return SERVICE_BINDING_RULE;
     }
