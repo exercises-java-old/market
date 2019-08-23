@@ -59,7 +59,6 @@ public class MarketApiServiceImpl extends MarketApiServiceGrpc.MarketApiServiceI
         }, "Failed creating market request order");
     }
 
-    // 0 = BUY, 1 = SELL
     private Side mapSide (se.lexicon.market.Side value) {
         if (value == se.lexicon.market.Side.BUY) return Side.BUY;
         return Side.SELL;
