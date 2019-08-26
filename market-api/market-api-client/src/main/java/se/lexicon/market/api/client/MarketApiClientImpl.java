@@ -11,16 +11,16 @@ import se.lexicon.market.component.domain.Side;
 @MetricsBean(name = "MarketApiClient")
 public class MarketApiClientImpl implements MarketApiClient{
 
-    private MarketApiServiceGrpc.MarketApiServiceBlockingStub marketService;
+    private MarketApiServiceGrpc.MarketApiServiceBlockingStub marketApiService;
 
-    public MarketApiClientImpl(MarketApiServiceGrpc.MarketApiServiceBlockingStub marketService) {
-        this.marketService = marketService;
+    public MarketApiClientImpl(MarketApiServiceGrpc.MarketApiServiceBlockingStub marketApiService) {
+        this.marketApiService = marketApiService;
     }
 
     @Override
     public boolean placeMarketOrder(MarketOrder marketOrder) {
 
-        se.lexicon.market.PlaceMarketOrderResponse response = marketService.placeMarketOrder(PlaceMarketOrderRequest.newBuilder()
+        se.lexicon.market.PlaceMarketOrderResponse response = marketApiService.placeMarketOrder(PlaceMarketOrderRequest.newBuilder()
               //.setId(marketOrder.getId())
               .setSsn(marketOrder.getSsn())
               .setOrderid(marketOrder.getOrderId())
