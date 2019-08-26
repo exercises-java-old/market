@@ -16,16 +16,14 @@
     </bean>
 
 
-
     <bean id ="orderParallelQueue" class="com.so4it.gs.queue.GigaSpaceParallelQueue" factory-bean="parallelQueueFactory"
           factory-method="createTaskExecutorParallelQueue" init-method="initialize" destroy-method="close">
         <constructor-arg name="workflowParallelQueueConsumer" ref="marketOrderParallelQueueConsumer"/>
     </bean>
 
-
-
     <bean id="marketOrderParallelQueueConsumer" class="se.lexicon.market.component.service.MarketOrderParallelQueueConsumer">
         <constructor-arg name="marketOrderDao" ref="marketOrderDao"/>
+        <constructor-arg name="orderApiClient" ref="orderApiClient"/>
     </bean>
 
 </beans>

@@ -7,6 +7,8 @@ import se.lexicon.market.component.domain.Side;
 import se.lexicon.market.component.entity.MarketOrderEntity;
 import se.lexicon.market.component.event.PlaceMarketOrderEvent;
 import se.lexicon.market.componment.dao.MarketOrderDao;
+import se.lexicon.order.api.client.OrderApiClient;
+import se.lexicon.order.component.domain.OrderDeal;
 
 import java.util.Currency;
 import java.util.Set;
@@ -16,11 +18,12 @@ public class MarketOrderParallelQueueConsumer {
 
     private MarketOrderDao marketOrderDao;
 
-    //private MarketApiClient marketClient;
+    private OrderApiClient orderApiClient;
 
 
-    public MarketOrderParallelQueueConsumer(MarketOrderDao marketOrderDao) {
+    public MarketOrderParallelQueueConsumer(MarketOrderDao marketOrderDao, OrderApiClient orderApiClient) {
         this.marketOrderDao = marketOrderDao;
+        this.orderApiClient = orderApiClient;
     }
 
     /**
@@ -140,7 +143,7 @@ public class MarketOrderParallelQueueConsumer {
 
             //System.out.println("Entity: " + marketEntity);
 
-            MarketOrderEntity marketedEntity = marketOrderDao.update(MarketOrderEntity.builder()
+            MarketOrderEntity bestMatchingEntity = marketOrderDao.update(MarketOrderEntity.builder()
                     .withId(bestMatchingMarket.getId())
                     .withSsn(bestMatchingMarket.getSsn())
                     .withOrderId(bestMatchingMarket.getOrderId())
@@ -158,21 +161,24 @@ public class MarketOrderParallelQueueConsumer {
 
             //System.out.println("Matched with: " + marketedEntity);
 
-            // Create initial DEAL
-//            MarketDealEntity marketDealEntity = marketDealDao.insert(MarketDealEntity.builder()
-//                .withInstrument(marketEntity.getInstrument())
-//                .withNoOfItems(noOfItemsToMatch)
-//                .withMarketId(marketEntity.getOrderId())
-//                .withPrice(CalculatePrice(marketEntity, bestMatchingMarket))
-//                .build());
-//            MarketDealEntity marketDealEntity = marketDealDao.insert(MarketDealEntity.builder()
-//                .withInstrument(marketEntity.getInstrument())
-//                .withNoOfItems(noOfItemsToMatch)
-//                .withMarketId(bestMatchingMarket.getOrderId())
-//                .withPrice(CalculatePrice(marketEntity, bestMatchingMarket))
-//                .build());
+            // Send the suggested DEAL back to order
+            Money agreedPrice = CalculatePrice(marketOrderEntity, bestMatchingMarket);
 
-            //System.out.println("Deal: " + marketDealEntity);
+            orderApiClient.makeDeal(OrderDeal.builder()
+                    .withSsn(marketOrderEntity.getSsn())
+                    .withOrderId(marketOrderEntity.getOrderId())
+                    .withInstrument(marketOrderEntity.getInstrument())
+                    .withNoOfItems(noOfItemsToMatch)
+                    .withPrice(mapMoney(agreedPrice))
+                    .build());
+
+            orderApiClient.makeDeal(OrderDeal.builder()
+                    .withSsn(bestMatchingMarket.getSsn())
+                    .withOrderId(bestMatchingMarket.getOrderId())
+                    .withInstrument(bestMatchingMarket.getInstrument())
+                    .withNoOfItems(noOfItemsToMatch)
+                    .withPrice(mapMoney(agreedPrice))
+                    .build());
 
             marketOrderEntities.remove(bestMatchingMarket); // Do not use this entity the next round
 
@@ -235,4 +241,12 @@ public class MarketOrderParallelQueueConsumer {
 
         return lastPrice;
     }
+
+    private se.lexicon.order.component.domain.Money mapMoney (Money money){
+        return se.lexicon.order.component.domain.Money.builder()
+                .withAmount(money.getAmount())
+                .withCurrency(money.getCurrency())
+                .build();
+    }
+
 }

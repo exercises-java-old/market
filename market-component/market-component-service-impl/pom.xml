@@ -29,6 +29,17 @@
             <artifactId>market-component-service</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.lexicon</groupId>
+            <artifactId>order-api-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lexicon</groupId>
+            <artifactId>order-component-domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.so4it.sugar</groupId>
             <artifactId>queue</artifactId>
         </dependency>
