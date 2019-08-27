@@ -8,5 +8,9 @@
         <constructor-arg name="gigaSpace" ref="marketGigaSpace"/>
     </bean>
 
+    <bean id="marketDealDao" class="se.lexicon.market.component.dao.MarketDealDaoImpl">
+        <constructor-arg name="gigaSpace" ref="marketGigaSpace"/>
+    </bean>
+
 
 </beans>

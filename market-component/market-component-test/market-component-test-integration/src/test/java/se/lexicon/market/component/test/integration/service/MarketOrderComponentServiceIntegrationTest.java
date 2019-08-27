@@ -15,6 +15,7 @@ import org.openspaces.core.GigaSpace;
 import se.lexicon.market.component.domain.*;
 import se.lexicon.market.component.service.MarketOrderComponentService;
 import se.lexicon.market.component.test.common.domain.MarketOrderTestBuilder;
+import se.lexicon.market.componment.dao.MarketDealDao;
 
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -38,7 +39,7 @@ public class MarketOrderComponentServiceIntegrationTest {
         Assert.assertNotNull(marketOrderComponentService);
     }
 
-    @Test
+   @Test
     public void testPlaceMarket() throws InterruptedException {
         //Set<Currency> currencies = Currency.getAvailableCurrencies();
         //System.out.println(currencies);
@@ -149,6 +150,9 @@ public class MarketOrderComponentServiceIntegrationTest {
 //        MarketOrders marketOrders3 = marketOrderComponentService.getMarketOrders("ABB","333333");
 //        MarketOrders marketOrders4 = marketOrderComponentService.getMarketOrders("ABB","444444");
 //        MarketOrders marketOrders5 = marketOrderComponentService.getMarketOrders("ABB","555555");
+
+        MarketDealDao marketDealDao = MarketOrderComponentServiceIntegrationTestSuite.getExportContext().getBean(MarketDealDao.class);
+        Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketDealDao.readAll().size() == 3));
 
 //        Assert.assertEquals(1, markets1.getFirst().getMarketDeals().size());
 //        Assert.assertEquals(1, markets2.getFirst().getMarketDeals().size());

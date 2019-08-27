@@ -6,8 +6,10 @@ import org.slf4j.LoggerFactory;
 import se.lexicon.market.component.domain.OrderPriceType;
 import se.lexicon.market.component.domain.Money;
 import se.lexicon.market.component.domain.Side;
+import se.lexicon.market.component.entity.MarketDealEntity;
 import se.lexicon.market.component.entity.MarketOrderEntity;
 import se.lexicon.market.component.event.PlaceMarketOrderEvent;
+import se.lexicon.market.componment.dao.MarketDealDao;
 import se.lexicon.market.componment.dao.MarketOrderDao;
 import se.lexicon.order.api.client.OrderApiClient;
 import se.lexicon.order.component.domain.OrderDeal;
@@ -20,13 +22,15 @@ public class MarketOrderParallelQueueConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(MarketOrderParallelQueueConsumer.class);
 
     private MarketOrderDao marketOrderDao;
+    private MarketDealDao  marketDealDao;
 
-    private OrderApiClient orderApiClient;
+    //private OrderApiClient orderApiClient;
 
 
-    public MarketOrderParallelQueueConsumer(MarketOrderDao marketOrderDao, OrderApiClient orderApiClient) {
+    public MarketOrderParallelQueueConsumer(MarketOrderDao marketOrderDao, MarketDealDao  marketDealDao) {
         this.marketOrderDao = marketOrderDao;
-        this.orderApiClient = orderApiClient;
+        this.marketDealDao  = marketDealDao;
+        //this.orderApiClient = orderApiClient;
     }
 
     /**
@@ -168,6 +172,14 @@ public class MarketOrderParallelQueueConsumer {
 
             // Send the suggested DEAL back to order
             Money agreedPrice = CalculatePrice(marketOrderEntity, bestMatchingMarket);
+
+            marketDealDao.insert(MarketDealEntity.builder()
+                    .withInstrument(marketOrderEntity.getInstrument())
+                    .withNoOfItems(noOfItemsToMatch)
+                    .withPrice(agreedPrice)
+                    .withOrderId1(marketOrderEntity.getOrderId())
+                    .withOrderId2(bestMatchingMarket.getOrderId())
+                    .build());
 
 //            orderApiClient.makeDeal(OrderDeal.builder()
 //                    .withSsn(marketOrderEntity.getSsn())

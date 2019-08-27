@@ -21,15 +21,13 @@ public class MarketApiProviderBeanPublisher extends AbstractApiClientProviderBea
 
     @Override
     public void publish(ApiClientProviderDefinition apiClientProviderDefinition, BeanContext beanContext, ApiFrameworkConfiguration apiFrameworkConfiguration, ManagedChannel managedChannel) {
-        MarketApiServiceGrpc.MarketApiServiceBlockingStub marketService = MarketApiServiceGrpc.newBlockingStub(managedChannel);
+        MarketApiServiceGrpc.MarketApiServiceFutureStub marketService = MarketApiServiceGrpc.newFutureStub(managedChannel);
         MarketApiClient marketApiClient = new MarketApiClientImpl(marketService);
         MarketApiClient marketApiClientProxy = BeanProxyInvocationHandler.create(
                 MarketApiClient.class,
                 marketApiClient,
                 createClientInterceptors(beanContext, marketApiClient));
         beanContext.register(MarketApiClient.DEFAULT_API_BEAN_NAME, marketApiClientProxy);
-
-
     }
 
     private static BeanProxy[] createClientInterceptors(BeanContext beanContext, Object target) {
