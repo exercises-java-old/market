@@ -63,6 +63,8 @@ public class MarketApiClientIntegrationTest {
 
         Assert.assertTrue(ok);
 
+        Thread.sleep(3000);
+
     }
 
 }

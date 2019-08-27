@@ -1,5 +1,7 @@
 package se.lexicon.market.component.service;
 
+import com.so4it.common.logger.Logger;
+import com.so4it.common.logger.LoggerFactory;
 import com.so4it.queue.ParallelQueue;
 import se.lexicon.market.component.domain.*;
 import com.so4it.common.util.object.Required;
@@ -15,6 +17,8 @@ import java.util.stream.Collectors;
 @ServiceExport({MarketOrderComponentService.class})
 public class
 MarketOrderComponentServiceImpl implements MarketOrderComponentService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MarketOrderComponentServiceImpl.class);
 
     private MarketOrderDao marketOrderDao;
 
@@ -58,6 +62,10 @@ MarketOrderComponentServiceImpl implements MarketOrderComponentService {
 
     @Override
     public Boolean placeMarketOrder(MarketOrder marketOrder) {
+
+        LOGGER.info("placeMarketOrder<offer>: " + marketOrder);
+
+        //System.out.println("MarketOrderComponentServiceImpl.placeMarketOrder: " + marketOrder);
 
         Boolean offerOk = orderParallelQueue.offer(PlaceMarketOrderEvent.builder()
                          //.withId(marketOrder.getId())

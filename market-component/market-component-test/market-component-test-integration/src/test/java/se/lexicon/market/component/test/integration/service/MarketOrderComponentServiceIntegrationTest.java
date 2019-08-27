@@ -69,7 +69,7 @@ public class MarketOrderComponentServiceIntegrationTest {
     }
 
     @Test
-    public void testMatchMarket() {
+    public void testMatchMarket() throws InterruptedException {
         MarketOrderComponentService marketOrderComponentService = MarketOrderComponentServiceIntegrationTestSuite.getImportContext().getBean(MarketOrderComponentService.class);
 
         MarketOrder market1 = MarketOrderTestBuilder.builder()
@@ -138,11 +138,17 @@ public class MarketOrderComponentServiceIntegrationTest {
         marketOrderComponentService.placeMarketOrder(market4);
         marketOrderComponentService.placeMarketOrder(market5);
 
-        MarketOrders marketOrders1 = marketOrderComponentService.getMarketOrders("ABB","111111");
-        MarketOrders marketOrders2 = marketOrderComponentService.getMarketOrders("ABB","222222");
-        MarketOrders marketOrders3 = marketOrderComponentService.getMarketOrders("ABB","333333");
-        MarketOrders marketOrders4 = marketOrderComponentService.getMarketOrders("ABB","444444");
-        MarketOrders marketOrders5 = marketOrderComponentService.getMarketOrders("ABB","555555");
+        Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketOrderComponentService.getMarketOrders("ABB","111111").size() == 1));
+        Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketOrderComponentService.getMarketOrders("ABB","222222").size() == 1));
+        Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketOrderComponentService.getMarketOrders("ABB","333333").size() == 1));
+        Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketOrderComponentService.getMarketOrders("ABB","444444").size() == 1));
+        Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketOrderComponentService.getMarketOrders("ABB","555555").size() == 1));
+
+//        MarketOrders marketOrders1 = marketOrderComponentService.getMarketOrders("ABB","111111");
+//        MarketOrders marketOrders2 = marketOrderComponentService.getMarketOrders("ABB","222222");
+//        MarketOrders marketOrders3 = marketOrderComponentService.getMarketOrders("ABB","333333");
+//        MarketOrders marketOrders4 = marketOrderComponentService.getMarketOrders("ABB","444444");
+//        MarketOrders marketOrders5 = marketOrderComponentService.getMarketOrders("ABB","555555");
 
 //        Assert.assertEquals(1, markets1.getFirst().getMarketDeals().size());
 //        Assert.assertEquals(1, markets2.getFirst().getMarketDeals().size());

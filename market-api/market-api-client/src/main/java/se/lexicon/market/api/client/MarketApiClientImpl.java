@@ -1,6 +1,8 @@
 package se.lexicon.market.api.client;
 
 import com.so4it.metric.springframework.MetricsBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import se.lexicon.market.MarketApiServiceGrpc;
 import se.lexicon.market.PlaceMarketOrderRequest;
 import se.lexicon.market.component.domain.MarketOrder;
@@ -11,6 +13,8 @@ import se.lexicon.market.component.domain.Side;
 @MetricsBean(name = "MarketApiClient")
 public class MarketApiClientImpl implements MarketApiClient{
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MarketApiClientImpl.class);
+
     private MarketApiServiceGrpc.MarketApiServiceBlockingStub marketApiService;
 
     public MarketApiClientImpl(MarketApiServiceGrpc.MarketApiServiceBlockingStub marketApiService) {
@@ -19,6 +23,8 @@ public class MarketApiClientImpl implements MarketApiClient{
 
     @Override
     public boolean placeMarketOrder(MarketOrder marketOrder) {
+
+        LOGGER.info("placeMarketOrder:" + marketOrder);
 
         se.lexicon.market.PlaceMarketOrderResponse response = marketApiService.placeMarketOrder(PlaceMarketOrderRequest.newBuilder()
               //.setId(marketOrder.getId())

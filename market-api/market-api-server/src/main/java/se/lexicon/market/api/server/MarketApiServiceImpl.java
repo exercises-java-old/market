@@ -6,6 +6,8 @@ import com.so4it.api.Market;
 import com.so4it.api.util.StreamObserverErrorHandler;
 import com.so4it.common.util.object.Required;
 import io.grpc.stub.StreamObserver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import se.lexicon.market.MarketApiServiceGrpc;
 import se.lexicon.market.PlaceMarketOrderRequest;
 import se.lexicon.market.PlaceMarketOrderResponse;
@@ -28,6 +30,8 @@ import java.util.Currency;
         specificationServiceNames = Market.SERVICE_NAMES)
 public class MarketApiServiceImpl extends MarketApiServiceGrpc.MarketApiServiceImplBase {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MarketApiServiceImpl.class);
+
     private MarketOrderComponentClient marketOrderComponentClient;
 
     public MarketApiServiceImpl(MarketOrderComponentClient marketOrderComponentClient) {
@@ -37,6 +41,8 @@ public class MarketApiServiceImpl extends MarketApiServiceGrpc.MarketApiServiceI
     @Override
     public void placeMarketOrder(PlaceMarketOrderRequest request, StreamObserver<PlaceMarketOrderResponse> responseObserver) {
         StreamObserverErrorHandler.of(responseObserver).onError(() -> {
+
+            LOGGER.info("placeMarketOrder: " + request);
 
             //if (request.getSerializedSize() = )
             Boolean Ok = marketOrderComponentClient.placeMarketOrder

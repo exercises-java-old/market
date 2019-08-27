@@ -1,6 +1,8 @@
 package se.lexicon.market.component.service;
 
 import com.so4it.queue.ParallelQueueConsumer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import se.lexicon.market.component.domain.OrderPriceType;
 import se.lexicon.market.component.domain.Money;
 import se.lexicon.market.component.domain.Side;
@@ -15,6 +17,7 @@ import java.util.Set;
 
 public class MarketOrderParallelQueueConsumer {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MarketOrderParallelQueueConsumer.class);
 
     private MarketOrderDao marketOrderDao;
 
@@ -34,6 +37,8 @@ public class MarketOrderParallelQueueConsumer {
      */
     @ParallelQueueConsumer
     public void placeOrder (PlaceMarketOrderEvent placeMarketOrderEvent) {
+
+        LOGGER.info("placeOrder: " + placeMarketOrderEvent);
 
         //MatchMarketOrder (placeMarketOrderEvent.getMarketOrder());
 
@@ -164,21 +169,21 @@ public class MarketOrderParallelQueueConsumer {
             // Send the suggested DEAL back to order
             Money agreedPrice = CalculatePrice(marketOrderEntity, bestMatchingMarket);
 
-            orderApiClient.makeDeal(OrderDeal.builder()
-                    .withSsn(marketOrderEntity.getSsn())
-                    .withOrderId(marketOrderEntity.getOrderId())
-                    .withInstrument(marketOrderEntity.getInstrument())
-                    .withNoOfItems(noOfItemsToMatch)
-                    .withPrice(mapMoney(agreedPrice))
-                    .build());
-
-            orderApiClient.makeDeal(OrderDeal.builder()
-                    .withSsn(bestMatchingMarket.getSsn())
-                    .withOrderId(bestMatchingMarket.getOrderId())
-                    .withInstrument(bestMatchingMarket.getInstrument())
-                    .withNoOfItems(noOfItemsToMatch)
-                    .withPrice(mapMoney(agreedPrice))
-                    .build());
+//            orderApiClient.makeDeal(OrderDeal.builder()
+//                    .withSsn(marketOrderEntity.getSsn())
+//                    .withOrderId(marketOrderEntity.getOrderId())
+//                    .withInstrument(marketOrderEntity.getInstrument())
+//                    .withNoOfItems(noOfItemsToMatch)
+//                    .withPrice(mapMoney(agreedPrice))
+//                    .build());
+//
+//            orderApiClient.makeDeal(OrderDeal.builder()
+//                    .withSsn(bestMatchingMarket.getSsn())
+//                    .withOrderId(bestMatchingMarket.getOrderId())
+//                    .withInstrument(bestMatchingMarket.getInstrument())
+//                    .withNoOfItems(noOfItemsToMatch)
+//                    .withPrice(mapMoney(agreedPrice))
+//                    .build());
 
             marketOrderEntities.remove(bestMatchingMarket); // Do not use this entity the next round
 
