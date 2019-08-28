@@ -6,7 +6,6 @@ import com.so4it.test.common.probe.Poller;
 import com.so4it.test.common.probe.SatisfiedWhenTrueReturned;
 import com.so4it.test.gs.rule.ClearGigaSpaceTestRule;
 import org.junit.ClassRule;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -76,6 +75,7 @@ public class MarketOrderComponentServiceIntegrationTest {
         MarketOrder market1 = MarketOrderTestBuilder.builder()
                 //.withId("111111")
                 .withSsn("111111")
+                .withOrderId("111111-1")
                 .withInstrument("ABB")
                 .withNoOfItems(100)
                 .withSide(Side.BUY)
@@ -88,6 +88,7 @@ public class MarketOrderComponentServiceIntegrationTest {
         MarketOrder market2 = MarketOrderTestBuilder.builder()
                 //.withId("222222")
                 .withSsn("222222")
+                .withOrderId("222222-1")
                 .withInstrument("ABB")
                 .withNoOfItems(100)
                 .withSide(Side.SELL)
@@ -100,6 +101,7 @@ public class MarketOrderComponentServiceIntegrationTest {
         MarketOrder market3 = MarketOrderTestBuilder.builder()
                 //.withId("333333")
                 .withSsn("333333")
+                .withOrderId("333333-1")
                 .withInstrument("ABB")
                 .withNoOfItems(50)
                 .withSide(Side.SELL)
@@ -112,6 +114,7 @@ public class MarketOrderComponentServiceIntegrationTest {
         MarketOrder market4 = MarketOrderTestBuilder.builder()
                 //.withId("444444")
                 .withSsn("444444")
+                .withOrderId("444444-1")
                 .withInstrument("ABB")
                 .withNoOfItems(50)
                 .withSide(Side.SELL)
@@ -124,6 +127,7 @@ public class MarketOrderComponentServiceIntegrationTest {
         MarketOrder market5 = MarketOrderTestBuilder.builder()
                 //.withId("555555")
                 .withSsn("555555")
+                .withOrderId("555555-1")
                 .withInstrument("ABB")
                 .withNoOfItems(100)
                 .withSide(Side.BUY)
@@ -203,14 +207,14 @@ public class MarketOrderComponentServiceIntegrationTest {
     public void testGetTotalMarketValue() throws InterruptedException {
         MarketOrderComponentService marketOrderComponentService = MarketOrderComponentServiceIntegrationTestSuite.getImportContext().getBean(MarketOrderComponentService.class);
 
-        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("111111").withInstrument("ABB").withAmount(BigDecimal.ONE).build());
-        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("111111").withInstrument("ABB").withAmount(BigDecimal.TEN).build());
-        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("111111").withInstrument("SAAB").withAmount(BigDecimal.TEN).build());
+        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("111111").withOrderId("111111-1").withInstrument("ABB").withAmount(BigDecimal.ONE).build());
+        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("111111").withOrderId("111111-2").withInstrument("ABB").withAmount(BigDecimal.TEN).build());
+        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("111111").withOrderId("111111-3").withInstrument("SAAB").withAmount(BigDecimal.TEN).build());
 
-        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("222222").withInstrument("ABB").withAmount(BigDecimal.ONE).build());
-        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("222222").withInstrument("SAAB").withAmount(BigDecimal.TEN).build());
-        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("222222").withInstrument("ERICSSON").withAmount(BigDecimal.TEN).build());
-        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("222222").withInstrument("ABB").withAmount(BigDecimal.TEN).build());
+        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("222222").withOrderId("222222-1").withInstrument("ABB").withAmount(BigDecimal.ONE).build());
+        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("222222").withOrderId("222222-2").withInstrument("SAAB").withAmount(BigDecimal.TEN).build());
+        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("222222").withOrderId("222222-3").withInstrument("ERICSSON").withAmount(BigDecimal.TEN).build());
+        marketOrderComponentService.placeMarketOrder(MarketOrderTestBuilder.builder().withSsn("222222").withOrderId("222222-4").withInstrument("ABB").withAmount(BigDecimal.TEN).build());
 
         Poller.pollAndCheck(SatisfiedWhenTrueReturned.create(() ->  marketOrderComponentService.getInstruments("222222").size() == 3));
 

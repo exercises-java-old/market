@@ -23,14 +23,14 @@ public class MarketOrderParallelQueueConsumer {
 
     private MarketOrderDao marketOrderDao;
     private MarketDealDao  marketDealDao;
+    private OrderApiClient orderApiClient;
 
-    //private OrderApiClient orderApiClient;
+    Money lastAgreedPrice;
 
-
-    public MarketOrderParallelQueueConsumer(MarketOrderDao marketOrderDao, MarketDealDao  marketDealDao) {
+    public MarketOrderParallelQueueConsumer(MarketOrderDao marketOrderDao, MarketDealDao  marketDealDao, OrderApiClient orderApiClient) {
         this.marketOrderDao = marketOrderDao;
         this.marketDealDao  = marketDealDao;
-        //this.orderApiClient = orderApiClient;
+        this.orderApiClient = orderApiClient;
     }
 
     /**
@@ -172,30 +172,33 @@ public class MarketOrderParallelQueueConsumer {
 
             // Send the suggested DEAL back to order
             Money agreedPrice = CalculatePrice(marketOrderEntity, bestMatchingMarket);
+            lastAgreedPrice = agreedPrice;
 
-            marketDealDao.insert(MarketDealEntity.builder()
+            MarketDealEntity marketDealEntity = marketDealDao.insert(MarketDealEntity.builder()
                     .withInstrument(marketOrderEntity.getInstrument())
                     .withNoOfItems(noOfItemsToMatch)
                     .withPrice(agreedPrice)
                     .withOrderId1(marketOrderEntity.getOrderId())
-                    .withOrderId2(bestMatchingMarket.getOrderId())
+                    .withOrderId2(bestMatchingEntity.getOrderId())
                     .build());
 
-//            orderApiClient.makeDeal(OrderDeal.builder()
-//                    .withSsn(marketOrderEntity.getSsn())
-//                    .withOrderId(marketOrderEntity.getOrderId())
-//                    .withInstrument(marketOrderEntity.getInstrument())
-//                    .withNoOfItems(noOfItemsToMatch)
-//                    .withPrice(mapMoney(agreedPrice))
-//                    .build());
-//
-//            orderApiClient.makeDeal(OrderDeal.builder()
-//                    .withSsn(bestMatchingMarket.getSsn())
-//                    .withOrderId(bestMatchingMarket.getOrderId())
-//                    .withInstrument(bestMatchingMarket.getInstrument())
-//                    .withNoOfItems(noOfItemsToMatch)
-//                    .withPrice(mapMoney(agreedPrice))
-//                    .build());
+            LOGGER.info("MatchMarketOrder: " + marketDealEntity);
+
+            orderApiClient.makeDeal(OrderDeal.builder()
+                    .withSsn(marketOrderEntity.getSsn())
+                    .withOrderId(marketOrderEntity.getOrderId())
+                    .withInstrument(marketOrderEntity.getInstrument())
+                    .withNoOfItems(noOfItemsToMatch)
+                    .withPrice(mapMoney(agreedPrice))
+                    .build());
+
+            orderApiClient.makeDeal(OrderDeal.builder()
+                    .withSsn(bestMatchingMarket.getSsn())
+                    .withOrderId(bestMatchingMarket.getOrderId())
+                    .withInstrument(bestMatchingMarket.getInstrument())
+                    .withNoOfItems(noOfItemsToMatch)
+                    .withPrice(mapMoney(agreedPrice))
+                    .build());
 
             marketOrderEntities.remove(bestMatchingMarket); // Do not use this entity the next round
 
@@ -238,8 +241,16 @@ public class MarketOrderParallelQueueConsumer {
     private Money CalculatePrice (MarketOrderEntity marketEntity1, MarketOrderEntity marketEntity2) {
         // WE NEED to change the lastPrice later on
         if (marketEntity1.getSide() == Side.SELL)
-            return CalculatePrice (marketEntity1.getMinMaxValue(), marketEntity1, marketEntity2);
-        return CalculatePrice (marketEntity2.getMinMaxValue(), marketEntity2, marketEntity1);
+            if (lastAgreedPrice != null)
+                return CalculatePrice (lastAgreedPrice, marketEntity1, marketEntity2);
+            else
+                return CalculatePrice (marketEntity1.getMinMaxValue(), marketEntity1, marketEntity2);
+
+        // BUY
+        if (lastAgreedPrice != null)
+            return CalculatePrice (lastAgreedPrice, marketEntity2, marketEntity1);
+        else
+            return CalculatePrice (marketEntity2.getMinMaxValue(), marketEntity2, marketEntity1);
     }
 
     private Money CalculatePrice (Money lastPrice, MarketOrderEntity seller, MarketOrderEntity buyer) {

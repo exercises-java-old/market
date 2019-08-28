@@ -30,16 +30,10 @@ public class MarketApiClientIntegrationTest {
     @ClassRule
     public static final RuleChain SUITE_RULE_CHAIN = MarketApiIntegrationTestSuite.SUITE_RULE_CHAIN;
 
-
     @Rule
     public ClearGigaSpaceTestRule clearGigaSpaceTestRule = new ClearGigaSpaceTestRule(MarketApiIntegrationTestSuite.getComponentRule().getBean(GigaSpace.class));
 
-
-
-
     private static final BeanContext BEAN_CONTEXT = ApiFrameworkCommonTest.createClientBeanContext(MarketApiIntegrationTestSuite.DYNAMIC_CONFIGURATION);
-
-
 
     @Rule
     public ApiFrameworkBootstrapTestRule apiFrameworkBootstrapTestRule = ApiFrameworkBootstrapTestRule.builder()
@@ -51,7 +45,6 @@ public class MarketApiClientIntegrationTest {
             .withClientInterceptors(new RequestContextClientInterceptor())
             .withServerInterceptors(new RequestContextServerInterceptor())
             .build();
-
 
 
     @Test

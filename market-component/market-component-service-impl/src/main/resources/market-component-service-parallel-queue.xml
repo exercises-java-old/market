@@ -24,6 +24,7 @@
     <bean id="marketOrderParallelQueueConsumer" class="se.lexicon.market.component.service.MarketOrderParallelQueueConsumer">
         <constructor-arg name="marketOrderDao" ref="marketOrderDao"/>
         <constructor-arg name="marketDealDao" ref="marketDealDao"/>
+        <constructor-arg name="orderApiClient" ref="orderApiClient"/>
     </bean>
 
 </beans>

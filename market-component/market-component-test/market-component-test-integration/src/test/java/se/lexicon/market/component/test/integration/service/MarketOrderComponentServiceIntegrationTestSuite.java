@@ -21,7 +21,9 @@ import org.junit.rules.RuleChain;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.junit.runners.Suite;
+import org.mockito.Mockito;
 import se.lexicon.market.component.service.MarketOrderComponentServiceProvider;
+import se.lexicon.order.api.client.OrderApiClient;
 
 /**
  * @author Magnus Poromaa {@literal <mailto:magnus.poromaa@so4it.com/>}
@@ -53,6 +55,8 @@ public class MarketOrderComponentServiceIntegrationTestSuite {
 
     private static ServiceBindingRule SERVICE_BINDING_RULE;
 
+    private static final OrderApiClient ORDER_API_CLIENT = Mockito.mock(OrderApiClient.class);
+
     @ClassRule
     public static final RuleChain SUITE_RULE_CHAIN = RuleChain
             .outerRule(getGigaSpacesRule())
@@ -72,6 +76,7 @@ public class MarketOrderComponentServiceIntegrationTestSuite {
                     .addBean(ServiceRegistryClient.DEFAULT_API_BEAN_NAME, SERVICE_REGISTRY)
                     .addBean(DynamicConfiguration.DEFAULT_BEAN_NAME, DYNAMIC_CONFIGURATION)
                     .addBean(MapBeanContext.DEFAULT_BEAN_NAME, new MapBeanContext())
+                    .addBean(OrderApiClient.DEFAULT_API_BEAN_NAME,ORDER_API_CLIENT)
                     .addProvider(ServiceFrameworkCommonTest.getPropertyProvider());
 
         }
