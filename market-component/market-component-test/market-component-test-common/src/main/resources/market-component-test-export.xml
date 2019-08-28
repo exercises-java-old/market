@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="invoiceComponentServiceExport" class="com.so4it.gs.rpc.ServiceFrameworkSpringBootstrap">
+    <bean id="marketComponentServiceExport" class="com.so4it.gs.rpc.ServiceFrameworkSpringBootstrap">
         <constructor-arg name="dynamicConfiguration" ref="dynamicConfiguration"/>
         <constructor-arg name="export" type="java.lang.Class"
                          value="se.lexicon.market.component.service.MarketOrderComponentDescriptor"/>

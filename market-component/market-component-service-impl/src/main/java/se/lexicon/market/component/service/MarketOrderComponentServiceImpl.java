@@ -15,8 +15,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @ServiceExport({MarketOrderComponentService.class})
-public class
-MarketOrderComponentServiceImpl implements MarketOrderComponentService {
+public class MarketOrderComponentServiceImpl implements MarketOrderComponentService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MarketOrderComponentServiceImpl.class);
 

@@ -10,6 +10,7 @@
 
     <modules>
         <module>market-api</module>
+        <module>market-bom</module>
          <module>market-component</module>
      </modules>
      <properties>
