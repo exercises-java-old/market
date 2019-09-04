@@ -1,6 +1,7 @@
 package se.lexicon.market.api.test.integration;
 
-import org.junit.Assert;
+import org.junit.*;
+import org.mockito.Mockito;
 import se.lexicon.market.api.client.MarketApiClient;
 import se.lexicon.market.api.client.MarketApiProvider;
 import com.so4it.api.interceptor.request.RequestContextClientInterceptor;
@@ -12,13 +13,12 @@ import com.so4it.common.bean.BeanContext;
 import com.so4it.test.category.IntegrationTest;
 import com.so4it.test.common.probe.Poller;
 import com.so4it.test.gs.rule.ClearGigaSpaceTestRule;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.rules.RuleChain;
 import org.openspaces.core.GigaSpace;
 import se.lexicon.market.component.test.common.domain.MarketOrderTestBuilder;
+import se.lexicon.order.api.client.OrderApiClient;
+import se.lexicon.order.api.client.OrderApiProvider;
 
 
 /**
@@ -34,6 +34,8 @@ public class MarketApiClientIntegrationTest {
     public ClearGigaSpaceTestRule clearGigaSpaceTestRule = new ClearGigaSpaceTestRule(MarketApiIntegrationTestSuite.getComponentRule().getBean(GigaSpace.class));
 
     private static final BeanContext BEAN_CONTEXT = ApiFrameworkCommonTest.createClientBeanContext(MarketApiIntegrationTestSuite.DYNAMIC_CONFIGURATION);
+
+    //private static final OrderApiClient ORDER_API_CLIENT = Mockito.mock(OrderApiClient.class);
 
     @Rule
     public ApiFrameworkBootstrapTestRule apiFrameworkBootstrapTestRule = ApiFrameworkBootstrapTestRule.builder()

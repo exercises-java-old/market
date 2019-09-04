@@ -7,7 +7,7 @@
     <bean id="marketComponentServiceExport" class="com.so4it.gs.rpc.ServiceFrameworkSpringBootstrap">
         <constructor-arg name="dynamicConfiguration" ref="dynamicConfiguration"/>
         <constructor-arg name="export" type="java.lang.Class"
-                         value="se.lexicon.market.component.service.MarketOrderComponentDescriptor"/>
+                         value="se.lexicon.market.component.service.MarketComponentDescriptor"/>
         <constructor-arg name="serviceRegistryClient" ref="serviceRegistryApiClient"/>
         <property name="beanContext" ref="frameworksBeanContext"/>
     </bean>

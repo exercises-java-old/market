@@ -9,7 +9,7 @@ import se.lexicon.market.component.domain.MarketOrders;
 import java.math.BigDecimal;
 import java.util.Set;
 
-public interface MarketOrderComponentService {
+public interface MarketComponentService {
 
     String DEFAULT_BEAN_NAME = "marketComponentService";
 

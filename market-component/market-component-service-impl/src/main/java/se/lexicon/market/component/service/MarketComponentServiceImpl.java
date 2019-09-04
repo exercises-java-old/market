@@ -14,20 +14,20 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@ServiceExport({MarketOrderComponentService.class})
-public class MarketOrderComponentServiceImpl implements MarketOrderComponentService {
+@ServiceExport({MarketComponentService.class})
+public class MarketComponentServiceImpl implements MarketComponentService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MarketOrderComponentServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MarketComponentServiceImpl.class);
 
     private MarketOrderDao marketOrderDao;
 
-    private ParallelQueue<PlaceMarketOrderEvent> orderParallelQueue;
+    private ParallelQueue<PlaceMarketOrderEvent> marketOrderParallelQueue;
 
 
-    public MarketOrderComponentServiceImpl(MarketOrderDao marketOrderDao,ParallelQueue<PlaceMarketOrderEvent> orderParallelQueue) {
+    public MarketComponentServiceImpl(MarketOrderDao marketOrderDao, ParallelQueue<PlaceMarketOrderEvent> marketOrderParallelQueue) {
 
         this.marketOrderDao = Required.notNull(marketOrderDao,"marketOrderDao");
-        this.orderParallelQueue = Required.notNull(orderParallelQueue,"orderParallelQueue");
+        this.marketOrderParallelQueue = Required.notNull(marketOrderParallelQueue,"marketOrderParallelQueue");
 
      }
 
@@ -66,7 +66,7 @@ public class MarketOrderComponentServiceImpl implements MarketOrderComponentServ
 
         //System.out.println("MarketOrderComponentServiceImpl.placeMarketOrder: " + marketOrder);
 
-        Boolean offerOk = orderParallelQueue.offer(PlaceMarketOrderEvent.builder()
+        Boolean offerOk = marketOrderParallelQueue.offer(PlaceMarketOrderEvent.builder()
                          //.withId(marketOrder.getId())
                         .withInstrument(marketOrder.getInstrument())
                         .withCounter(1)

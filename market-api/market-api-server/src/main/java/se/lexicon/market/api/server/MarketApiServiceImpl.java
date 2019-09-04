@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import se.lexicon.market.MarketApiServiceGrpc;
 import se.lexicon.market.PlaceMarketOrderRequest;
 import se.lexicon.market.PlaceMarketOrderResponse;
-import se.lexicon.market.component.client.MarketOrderComponentClient;
+import se.lexicon.market.component.client.MarketComponentClient;
 import se.lexicon.market.component.domain.MarketOrder;
 import se.lexicon.market.component.domain.Money;
 import se.lexicon.market.component.domain.OrderPriceType;
@@ -32,10 +32,10 @@ public class MarketApiServiceImpl extends MarketApiServiceGrpc.MarketApiServiceI
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MarketApiServiceImpl.class);
 
-    private MarketOrderComponentClient marketOrderComponentClient;
+    private MarketComponentClient marketComponentClient;
 
-    public MarketApiServiceImpl(MarketOrderComponentClient marketOrderComponentClient) {
-        this.marketOrderComponentClient = Required.notNull(marketOrderComponentClient,"marketOrderComponentClient");
+    public MarketApiServiceImpl(MarketComponentClient marketComponentClient) {
+        this.marketComponentClient = Required.notNull(marketComponentClient,"marketOrderComponentClient");
     }
 
     @Override
@@ -45,7 +45,7 @@ public class MarketApiServiceImpl extends MarketApiServiceGrpc.MarketApiServiceI
             LOGGER.info("placeMarketOrder: " + request);
 
             //if (request.getSerializedSize() = )
-            Boolean Ok = marketOrderComponentClient.placeMarketOrder
+            Boolean Ok = marketComponentClient.placeMarketOrder
                     (MarketOrder.builder()
                             //.withId(request.getId())
                             .withSsn(request.getSsn())

@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * @author Magnus Poromaa {@literal <mailto:magnus.poromaa@so4it.com/>}
  */
-public interface MarketOrderComponentClient {
+public interface MarketComponentClient {
 
     Set<String> getInstruments(String ssn);
     MarketOrders getMarketOrders(String instrument, String ssn);

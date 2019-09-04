@@ -17,9 +17,9 @@ import se.lexicon.order.component.domain.OrderDeal;
 import java.util.Currency;
 import java.util.Set;
 
-public class MarketOrderParallelQueueConsumer {
+public class MarketParallelQueueConsumer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MarketOrderParallelQueueConsumer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MarketParallelQueueConsumer.class);
 
     private MarketOrderDao marketOrderDao;
     private MarketDealDao  marketDealDao;
@@ -27,7 +27,7 @@ public class MarketOrderParallelQueueConsumer {
 
     Money lastAgreedPrice;
 
-    public MarketOrderParallelQueueConsumer(MarketOrderDao marketOrderDao, MarketDealDao  marketDealDao, OrderApiClient orderApiClient) {
+    public MarketParallelQueueConsumer(MarketOrderDao marketOrderDao, MarketDealDao  marketDealDao, OrderApiClient orderApiClient) {
         this.marketOrderDao = marketOrderDao;
         this.marketDealDao  = marketDealDao;
         this.orderApiClient = orderApiClient;
@@ -40,9 +40,9 @@ public class MarketOrderParallelQueueConsumer {
      * @param placeMarketOrderEvent
      */
     @ParallelQueueConsumer
-    public void placeOrder (PlaceMarketOrderEvent placeMarketOrderEvent) {
+    public void PlaceOrder (PlaceMarketOrderEvent placeMarketOrderEvent) {
 
-        LOGGER.info("placeOrder: " + placeMarketOrderEvent);
+        LOGGER.info("PlaceOrder: " + placeMarketOrderEvent);
 
         //MatchMarketOrder (placeMarketOrderEvent.getMarketOrder());
 

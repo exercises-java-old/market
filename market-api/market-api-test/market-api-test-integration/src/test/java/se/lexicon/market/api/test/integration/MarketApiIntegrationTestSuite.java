@@ -1,6 +1,7 @@
 package se.lexicon.market.api.test.integration;
 
-import se.lexicon.market.component.service.MarketOrderComponentServiceProvider;
+import org.mockito.Mockito;
+import se.lexicon.market.component.service.MarketComponentServiceProvider;
 import com.so4it.api.test.common.ApiFrameworkCommonTest;
 import com.so4it.common.bean.MapBeanContext;
 import com.so4it.common.jmx.MBeanRegistry;
@@ -24,6 +25,7 @@ import org.junit.rules.RuleChain;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.junit.runners.Suite;
+import se.lexicon.order.api.client.OrderApiClient;
 
 /**
  * @author Magnus Poromaa {@literal <mailto:magnus.poromaa@so4it.com/>}
@@ -57,6 +59,8 @@ public class MarketApiIntegrationTestSuite {
 
     private static ServiceBindingRule SERVICE_BINDING_RULE;
 
+    private static final OrderApiClient ORDER_API_CLIENT = Mockito.mock(OrderApiClient.class);
+
     @ClassRule
     public static final RuleChain SUITE_RULE_CHAIN = RuleChain
             .outerRule(getGigaSpacesRule())
@@ -79,6 +83,7 @@ public class MarketApiIntegrationTestSuite {
             COMPONENT_TEST_RULE.addBean(ServiceRegistryClient.DEFAULT_API_BEAN_NAME, SERVICE_REGISTRY);
             COMPONENT_TEST_RULE.addBean(DynamicConfiguration.DEFAULT_BEAN_NAME, DYNAMIC_CONFIGURATION);
             COMPONENT_TEST_RULE.addBean(MapBeanContext.DEFAULT_BEAN_NAME, new MapBeanContext());
+            COMPONENT_TEST_RULE.addBean(OrderApiClient.DEFAULT_API_BEAN_NAME,ORDER_API_CLIENT);
         }
         return COMPONENT_TEST_RULE;
     }
@@ -98,6 +103,7 @@ public class MarketApiIntegrationTestSuite {
             API_TEST_RULE.addBean(DynamicConfiguration.DEFAULT_BEAN_NAME, DYNAMIC_CONFIGURATION);
             API_TEST_RULE.addBean(MapBeanContext.DEFAULT_BEAN_NAME, new MapBeanContext());
             API_TEST_RULE.addBean(ServiceBeanStateRegistry.DEFAULT_BEAN_NAME, SERVICE_BEAN_STATE_REGISTRY);
+
         }
         return API_TEST_RULE;
     }
@@ -120,7 +126,7 @@ public class MarketApiIntegrationTestSuite {
     public static ServiceBindingRule getServiceBindingRule() {
         if (SERVICE_BINDING_RULE == null) {
             SERVICE_BINDING_RULE = new ServiceBindingRule(SERVICE_BEAN_STATE_REGISTRY);
-            SERVICE_BINDING_RULE.addServiceProvider(MarketOrderComponentServiceProvider.class);
+            SERVICE_BINDING_RULE.addServiceProvider(MarketComponentServiceProvider.class);
         }
         return SERVICE_BINDING_RULE;
     }

@@ -5,7 +5,7 @@
             http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="marketApiService" class="se.lexicon.market.api.server.MarketApiServiceImpl">
-        <constructor-arg name="marketOrderComponentClient" ref="marketOrderComponentClient"/>
+        <constructor-arg name="marketComponentClient" ref="marketComponentClient"/>
     </bean>
 
 </beans>

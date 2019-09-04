@@ -8,7 +8,7 @@
     </bean>
 
 
-    <bean id="parallelQueueFactory" class="se.lexicon.market.component.service.ParallelQueueFactory">
+    <bean id="marketParallelQueueFactory" class="se.lexicon.market.component.service.MarketParallelQueueFactory">
         <constructor-arg name="gigaSpaceParallelQueueConfiguration" ref="gigaSpaceParallelQueueConfiguration"/>
         <constructor-arg name="mBeanRegistry" ref="mBeanRegistry"/>
         <constructor-arg name="gigaSpace" ref="marketGigaSpace"/>
@@ -16,12 +16,12 @@
     </bean>
 
 
-    <bean id ="orderParallelQueue" class="com.so4it.gs.queue.GigaSpaceParallelQueue" factory-bean="parallelQueueFactory"
+    <bean id ="marketParallelQueue" class="com.so4it.gs.queue.GigaSpaceParallelQueue" factory-bean="marketParallelQueueFactory"
           factory-method="createTaskExecutorParallelQueue" init-method="initialize" destroy-method="close">
-        <constructor-arg name="workflowParallelQueueConsumer" ref="marketOrderParallelQueueConsumer"/>
+        <constructor-arg name="workflowParallelQueueConsumer" ref="marketParallelQueueConsumer"/>
     </bean>
 
-    <bean id="marketOrderParallelQueueConsumer" class="se.lexicon.market.component.service.MarketOrderParallelQueueConsumer">
+    <bean id="marketParallelQueueConsumer" class="se.lexicon.market.component.service.MarketParallelQueueConsumer">
         <constructor-arg name="marketOrderDao" ref="marketOrderDao"/>
         <constructor-arg name="marketDealDao" ref="marketDealDao"/>
         <constructor-arg name="orderApiClient" ref="orderApiClient"/>

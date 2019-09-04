@@ -8,11 +8,10 @@ import com.so4it.gs.queue.GigaSpaceParallelQueueFactory;
 import com.so4it.queue.ParallelQueue;
 import org.openspaces.core.GigaSpace;
 import org.springframework.transaction.PlatformTransactionManager;
-import se.lexicon.market.component.entity.MarketOrderEntity;
 import se.lexicon.market.component.event.PlaceMarketOrderEvent;
 //import se.lexicon.market.component.event.PlaceMarketOrderEvent;
 
-public class ParallelQueueFactory {
+public class MarketParallelQueueFactory {
 
     private final MBeanRegistry mBeanRegistry;
 
@@ -22,16 +21,16 @@ public class ParallelQueueFactory {
 
     private final GigaSpaceParallelQueueConfiguration gigaSpaceParallelQueueConfiguration;
 
-    public ParallelQueueFactory(GigaSpaceParallelQueueConfiguration gigaSpaceParallelQueueConfiguration, MBeanRegistry mBeanRegistry, GigaSpace gigaSpace, PlatformTransactionManager transactionManager) {
+    public MarketParallelQueueFactory(GigaSpaceParallelQueueConfiguration gigaSpaceParallelQueueConfiguration, MBeanRegistry mBeanRegistry, GigaSpace gigaSpace, PlatformTransactionManager transactionManager) {
         this.mBeanRegistry = Required.notNull(mBeanRegistry, "mBeanRegistry");
         this.gigaSpace = Required.notNull(gigaSpace, "gigaSpace");
         this.transactionManager = Required.notNull(transactionManager, "transactionManager");
         this.gigaSpaceParallelQueueConfiguration = Required.notNull(gigaSpaceParallelQueueConfiguration, "gigaSpaceParallelQueueConfiguration");
     }
 
-    public ParallelQueue<PlaceMarketOrderEvent> createTaskExecutorParallelQueue(MarketOrderParallelQueueConsumer workflowParallelQueueConsumer) {
+    public ParallelQueue<PlaceMarketOrderEvent> createTaskExecutorParallelQueue(MarketParallelQueueConsumer workflowParallelQueueConsumer) {
         return GigaSpaceParallelQueueFactory.createSingleReadSingleTakeWithFifoStaticTemplateWithTransactionManager(
-                "OrderExecutor",
+                "PlaceOrder",
                 gigaSpace,
                 transactionManager,
                 mBeanRegistry,
